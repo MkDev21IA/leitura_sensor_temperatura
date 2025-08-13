@@ -1,0 +1,1 @@
+# interface_grafica_sensor_temperatura_analogica
