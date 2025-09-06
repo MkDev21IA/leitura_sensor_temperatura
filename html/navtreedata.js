@@ -24,7 +24,7 @@
 */
 var NAVTREE =
 [
-  [ "Sensor_de_Temperatura", "index.html", [
+  [ "Sensor de Temperatura", "index.html", [
     [ "🌡️ Monitoramento Remoto – Sensor de Temperatura Analógica", "md_README.html", [
       [ "🚀 Visão Geral", "md_README.html#autotoc_md2", null ],
       [ "👥 Equipe", "md_README.html#autotoc_md4", null ],
@@ -50,6 +50,6 @@ var NAVTREEINDEX =
 "index.html"
 ];
 
-var SYNCONMSG = 'clique para desativar a sincronização do painel';
-var SYNCOFFMSG = 'clique para ativar a sincronização do painel';
-var LISTOFALLMEMBERS = 'Mostrar lista completa dos membros';
+var SYNCONMSG = 'click to disable panel synchronization';
+var SYNCOFFMSG = 'click to enable panel synchronization';
+var LISTOFALLMEMBERS = 'List of all members';

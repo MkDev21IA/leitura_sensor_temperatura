@@ -1,109 +1,226 @@
 /**
- * @file
- * @brief Leitura de ADC e preparação para medição de temperatura via termistor em sistema Linux embarcado STM32.
- *
- * Este código executa leituras periódicas de um canal ADC e mostra o valor bruto e a tensão correspondente.
- * Também inclui um esqueleto para função de conversão de temperatura com termistor.
+ * @file ADCReader.h
+ * @brief Classe para leitura de ADC e medição de temperatura via termistor em sistema Linux embarcado STM32.
  */
 
 #include <cmath>
 #include <fstream>
 #include <iostream>
+#include <string>
 #include <unistd.h>
 
 /**
- * @def ADC_RAW_FILE
- * @brief Caminho para o arquivo de leitura do ADC no sistema de arquivos Linux.
- */
-#define ADC_RAW_FILE "/sys/bus/iio/devices/iio:device0/in_voltage13_raw"
-
-/**
- * @def ADC_MAX_VALUE
- * @brief Valor máximo de conversão do ADC de 14 bits no STM32.
- */
-#define ADC_MAX_VALUE 16384
-
-/**
- * @def VREF
- * @brief Tensão de referência aplicada ao ADC (V).
- */
-#define VREF 3.3
-
-/**
- * @brief Lê o valor bruto (RAW) do ADC via arquivo no sistema de arquivos.
+ * @class ADCReader
+ * @brief Classe responsável pela leitura de ADC e conversão para temperatura via termistor.
  *
- * Abre o arquivo do sistema correspondente ao canal ADC e lê o valor convertido.
- * Retorna o valor inteiro lido ou -1 em caso de erro de acesso ao arquivo.
- *
- * @return Valor RAW do ADC (inteiro >= 0) ou -1 em caso de falha.
+ * Esta classe encapsula todas as funcionalidades de leitura ADC, conversão de tensão
+ * e cálculo de temperatura usando termistor NTC com equação de Steinhart-Hart.
  */
-int readADC()
-{
-    std::ifstream adcFile(ADC_RAW_FILE);
-    int value;
-    if (adcFile.is_open()) {
-        adcFile >> value;
-        adcFile.close();
-        return value;
-    } else {
-        std::cerr << "Erro ao abrir o arquivo do ADC!" << std::endl;
-        return -1;
+class ADCReader {
+private:
+    std::string adcFilePath; ///< Caminho para o arquivo ADC no sistema
+    int adcMaxValue; ///< Valor máximo do ADC
+    float vRef; ///< Tensão de referência do ADC
+
+    // Constantes do termistor
+    double seriesResistor; ///< Resistência em série (Ohms)
+    double steinhartA; ///< Coeficiente A de Steinhart-Hart
+    double steinhartB; ///< Coeficiente B de Steinhart-Hart
+    double steinhartC; ///< Coeficiente C de Steinhart-Hart
+
+public:
+    /**
+     * @brief Construtor da classe ADCReader.
+     *
+     * @param filePath Caminho para o arquivo ADC (padrão: canal 13)
+     * @param maxValue Valor máximo do ADC (padrão: 16384 para 14 bits)
+     * @param referenceVoltage Tensão de referência (padrão: 3.3V)
+     */
+    ADCReader(const std::string& filePath = "/sys/bus/iio/devices/iio:device0/in_voltage13_raw",
+        int maxValue = 16384,
+        float referenceVoltage = 3.3f)
+        : adcFilePath(filePath)
+        , adcMaxValue(maxValue)
+        , vRef(referenceVoltage)
+        , seriesResistor(10000.0)
+        , steinhartA(0.001129148)
+        , steinhartB(0.000234125)
+        , steinhartC(0.0000000876741)
+    {
     }
-}
 
-/**
- * @brief Função planejada para calcular a temperatura a partir de um termistor ligado ao ADC.
- *
- * Em futuras implementações, esta função converterá o valor bruto do ADC para uma resistência,
- * e com a equação de Steinhart-Hart determinará a temperatura. Os parâmetros são exemplos
- * para termistores NTC de uso comum, mas devem ser ajustados conforme o sensor real.
- *
- * @param RawADC Valor bruto lido do ADC.
- * @return Temperatura calculada em graus Celsius.
- *
- * @note Esta função pode ser adaptada para uso com outros sensores de temperatura na mesma porta ADC.
- */
-double Thermistor(int RawADC)
-{
-    const double SERIES_RESISTOR = 10000.0; ///< Resistência em série (Ohms)
-    const double ADC_MAX = 16384; ///< Faixa máxima do conversor ADC (14 bits)
-    const double A = 0.001129148; ///< Coeficiente Steinhart-Hart para exemplo de NTC
-    const double B = 0.000234125;
-    const double C = 0.0000000876741;
+    /**
+     * @brief Define os coeficientes de Steinhart-Hart para o termistor.
+     *
+     * @param A Coeficiente A
+     * @param B Coeficiente B
+     * @param C Coeficiente C
+     * @param resistance Resistência em série (Ohms)
+     */
+    void setThermistorParameters(double A, double B, double C, double resistance = 10000.0)
+    {
+        steinhartA = A;
+        steinhartB = B;
+        steinhartC = C;
+        seriesResistor = resistance;
+    }
 
-    if (RawADC == 0)
-        return -273.15;
+    /**
+     * @brief Configura o caminho do arquivo ADC.
+     *
+     * @param filePath Novo caminho para o arquivo ADC
+     */
+    void setADCFilePath(const std::string& filePath)
+    {
+        adcFilePath = filePath;
+    }
 
-    double resistance = SERIES_RESISTOR * ((ADC_MAX / RawADC) - 1.0);
-    double logR = log(resistance);
+    /**
+     * @brief Lê o valor bruto (RAW) do ADC.
+     *
+     * @return Valor RAW do ADC (inteiro >= 0) ou -1 em caso de falha
+     */
+    int readRawADC()
+    {
+        std::ifstream adcFile(adcFilePath);
+        int value;
 
-    double tempK = 1.0 / (A + B * logR + C * logR * logR * logR);
+        if (adcFile.is_open()) {
+            adcFile >> value;
+            adcFile.close();
+            return value;
+        } else {
+            std::cerr << "Erro ao abrir o arquivo do ADC: " << adcFilePath << std::endl;
+            return -1;
+        }
+    }
 
-    return tempK - 273.15;
-}
+    /**
+     * @brief Converte valor RAW do ADC para tensão.
+     *
+     * @param rawValue Valor bruto do ADC
+     * @return Tensão correspondente em Volts
+     */
+    float convertToVoltage(int rawValue)
+    {
+        if (rawValue < 0)
+            return -1.0f;
+        return (float)rawValue * vRef / adcMaxValue;
+    }
 
-/**
- * @brief Função principal (loop).
- *
- * Inicializa loop contínuo de leitura do ADC, com pausa de 1 segundo entre leituras. Mostra na tela
- * o valor bruto e a tensão lida, convertendo o valor ADC pela referência configurada.
- * Em caso de leitura inválida, indica erro na saída padrão de erro.
- *
- * @return 0 ao finalizar (caso o loop seja interrompido externamente).
- */
-int main()
-{
-    while (true) {
-        int raw = readADC();
-        if (raw >= 0) {
-            float voltage = (float)raw * VREF / ADC_MAX_VALUE;
-            std::cout << "Leitura ADC RAW: " << raw << " --- Tensão: " << voltage << std::endl;
-            // Para futura leitura de temperatura, descomente a linha abaixo:
-            // std::cout << "Temperatura: " << Thermistor(raw) << " °C" << std::endl;
+    /**
+     * @brief Calcula a temperatura usando termistor e equação de Steinhart-Hart.
+     *
+     * @param rawADC Valor bruto lido do ADC
+     * @return Temperatura calculada em graus Celsius
+     */
+    double calculateTemperature(int rawADC)
+    {
+        if (rawADC <= 0)
+            return -273.15;
+
+        double resistance = seriesResistor * ((adcMaxValue / (double)rawADC) - 1.0);
+        double logR = log(resistance);
+        double tempK = 1.0 / (steinhartA + steinhartB * logR + steinhartC * logR * logR * logR);
+
+        return tempK - 273.15;
+    }
+
+    /**
+     * @brief Realiza uma leitura completa: ADC, tensão e temperatura.
+     *
+     * @param rawValue Referência para armazenar valor bruto
+     * @param voltage Referência para armazenar tensão
+     * @param temperature Referência para armazenar temperatura
+     * @return true se a leitura foi bem-sucedida, false caso contrário
+     */
+    bool readAll(int& rawValue, float& voltage, double& temperature)
+    {
+        rawValue = readRawADC();
+
+        if (rawValue >= 0) {
+            voltage = convertToVoltage(rawValue);
+            temperature = calculateTemperature(rawValue);
+            return true;
+        }
+
+        return false;
+    }
+
+    /**
+     * @brief Imprime os valores lidos na saída padrão.
+     *
+     * @param showTemperature Se deve mostrar a temperatura calculada
+     */
+    void printReading(bool showTemperature = true)
+    {
+        int raw;
+        float voltage;
+        double temperature;
+
+        if (readAll(raw, voltage, temperature)) {
+            std::cout << "Leitura ADC RAW: " << raw
+                      << " --- Tensão: " << voltage << "V";
+
+            if (showTemperature) {
+                std::cout << " --- Temperatura: " << temperature << "°C";
+            }
+
+            std::cout << std::endl;
         } else {
             std::cerr << "Falha na leitura ADC" << std::endl;
         }
-        sleep(1);
     }
+
+    /**
+     * @brief Inicia loop contínuo de leituras.
+     *
+     * @param intervalSeconds Intervalo entre leituras em segundos
+     * @param showTemperature Se deve mostrar a temperatura
+     */
+    void startContinuousReading(int intervalSeconds = 1, bool showTemperature = true)
+    {
+        while (true) {
+            printReading(showTemperature);
+            sleep(intervalSeconds);
+        }
+    }
+
+    // Getters
+    int getADCMaxValue() const { return adcMaxValue; }
+    float getVRef() const { return vRef; }
+    std::string getADCFilePath() const { return adcFilePath; }
+};
+
+/**
+ * @brief Exemplo de uso da classe ADCReader.
+ */
+int main()
+{
+    // Criar instância da classe ADC
+    ADCReader adc;
+
+    // Opcional: configurar parâmetros específicos do termistor
+    // adc.setThermistorParameters(0.001129148, 0.000234125, 0.0000000876741, 10000.0);
+
+    // Opcional: configurar canal ADC diferente
+    // adc.setADCFilePath("/sys/bus/iio/devices/iio:device0/in_voltage12_raw");
+
+    // Iniciar leituras contínuas (com temperatura)
+    adc.startContinuousReading(1, true);
+
+    /* Exemplo de uso alternativo - leituras individuais:
+     *
+     *   int raw;
+     *   float voltage;
+     *   double temperature;
+     *
+     *   if (adc.readAll(raw, voltage, temperature)) {
+     *       std::cout << "RAW: " << raw << ", Tensão: " << voltage
+     *                 << "V, Temperatura: " << temperature << "°C" << std::endl;
+}
+
+*/
+
     return 0;
 }

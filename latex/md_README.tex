@@ -100,7 +100,7 @@ O sistema segue uma arquitetura {\bfseries{IoT modular}}, permitindo integraçã
 \hypertarget{md_README_autotoc_md13}{}\doxysubsection{\texorpdfstring{1. Compilação cruzada (C++ embarcado)}{1. Compilação cruzada (C++ embarcado)}}\label{md_README_autotoc_md13}
 Na VM/\+Linux com toolchain configurada\+: 
 \begin{DoxyCode}{0}
-\DoxyCodeLine{make}
+\DoxyCodeLine{\$GXXCOMPILER\ .scr/SensorTemp.cpp\ -\/o\ ./build/sensor}
 
 \end{DoxyCode}
  O binário será gerado em {\ttfamily build/}.\hypertarget{md_README_autotoc_md14}{}\doxysubsection{\texorpdfstring{2. Deploy no kit}{2. Deploy no kit}}\label{md_README_autotoc_md14}

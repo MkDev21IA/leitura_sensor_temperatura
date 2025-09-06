@@ -12,7 +12,7 @@ var indexSectionNames =
 
 var indexSectionLabels =
 {
-  0: "Tudo",
-  1: "Páginas"
+  0: "All",
+  1: "Pages"
 };
 
