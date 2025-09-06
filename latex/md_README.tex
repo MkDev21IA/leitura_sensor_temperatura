@@ -1,0 +1,176 @@
+\chapter{🌡️ Monitoramento Remoto – Sensor de Temperatura Analógica }
+\hypertarget{md_README}{}\label{md_README}\index{🌡️ Monitoramento Remoto – Sensor de Temperatura Analógica@{🌡️ Monitoramento Remoto – Sensor de Temperatura Analógica}}
+\label{md_README_autotoc_md0}%
+\Hypertarget{md_README_autotoc_md0}%
+
+
+Sistema embarcado para {\bfseries{monitoramento remoto de condições térmicas}}, desenvolvido com o {\bfseries{kit STM32\+MP1-\/\+DK1}} e o sensor analógico {\bfseries{KY-\/013}}, com transmissão contínua via {\bfseries{UDP}} e supervisão em {\bfseries{interface gráfica multiplataforma}}.
+
+\DoxyHorRuler{0}
+\hypertarget{md_README_autotoc_md2}{}\doxysection{\texorpdfstring{🚀 Visão Geral}{🚀 Visão Geral}}\label{md_README_autotoc_md2}
+Cargas sensíveis exigem {\bfseries{rastreabilidade e monitoramento constante}}. Este projeto implementa um sistema embarcado que\+:
+\begin{DoxyItemize}
+\item Lê a temperatura em tempo real pelo {\bfseries{ADC do STM32\+MP1-\/\+DK1}} ~\newline
+
+\item Converte o valor bruto para {\bfseries{graus Celsius}} ~\newline
+
+\item Transmite os dados via {\bfseries{UDP}} para um servidor na rede local ~\newline
+
+\item Exibe as leituras em uma {\bfseries{interface gráfica no PC}}, com histórico e alertas configuráveis ~\newline
+
+\end{DoxyItemize}
+
+O sistema segue uma arquitetura {\bfseries{IoT modular}}, permitindo integração futura com outros sensores (umidade, luminosidade, vibração etc.).
+
+\DoxyHorRuler{0}
+\hypertarget{md_README_autotoc_md4}{}\doxysection{\texorpdfstring{👥 Equipe}{👥 Equipe}}\label{md_README_autotoc_md4}
+
+\begin{DoxyItemize}
+\item {\bfseries{Mikhael Silveira}} – Engenharia Eletrônica ~\newline
+
+\item {\bfseries{Rafael Sodré}} – Engenharia Elétrica ~\newline
+
+\item {\bfseries{Marcos Vinícius}} – Engenharia de Comunicações ~\newline
+
+\end{DoxyItemize}
+
+\DoxyHorRuler{0}
+\hypertarget{md_README_autotoc_md6}{}\doxysection{\texorpdfstring{🛠️ Funcionalidades}{🛠️ Funcionalidades}}\label{md_README_autotoc_md6}
+
+\begin{DoxyItemize}
+\item 📡 {\bfseries{Aquisição de dados}} via ADC (IIO Linux) ~\newline
+
+\item 🔄 {\bfseries{Conversão}} para °C com calibração linear ~\newline
+
+\item 📤 {\bfseries{Transmissão UDP}} em tempo real ~\newline
+
+\item 🖥️ {\bfseries{Interface gráfica}} com\+:
+\begin{DoxyItemize}
+\item Valor atual da temperatura ~\newline
+
+\item Histórico gráfico (últimos 60s) ~\newline
+
+\item Alertas visuais para valores fora da faixa segura ~\newline
+
+\item Exportação para CSV com timestamps ~\newline
+
+\end{DoxyItemize}
+\end{DoxyItemize}
+
+\DoxyHorRuler{0}
+\hypertarget{md_README_autotoc_md8}{}\doxysection{\texorpdfstring{⚙️ Arquitetura}{⚙️ Arquitetura}}\label{md_README_autotoc_md8}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{[KY-\/013]\ →\ [ADC\ STM32MP1]\ →\ [Classe\ C++\ SensorTemp]}
+\DoxyCodeLine{\ \ \ ↓\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ ↓}
+\DoxyCodeLine{\ \ \ └──────────────→\ UDP\ Socket\ →\ Servidor\ PC\ →\ Interface\ Gráfica}
+
+\end{DoxyCode}
+
+
+
+\begin{DoxyItemize}
+\item {\bfseries{Embarcado (C++)}}\+: leitura do ADC, conversão e envio UDP ~\newline
+
+\item {\bfseries{Servidor/\+PC (Python/\+Qt)}}\+: recepção, processamento e visualização ~\newline
+
+\end{DoxyItemize}
+
+\DoxyHorRuler{0}
+\hypertarget{md_README_autotoc_md10}{}\doxysection{\texorpdfstring{📂 Estrutura do Repositório}{📂 Estrutura do Repositório}}\label{md_README_autotoc_md10}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{├──\ src/\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \#\ Código\ embarcado\ (C++)}
+\DoxyCodeLine{│\ \ \ ├──\ SensorTemp.cpp\ \ \#\ Classe\ do\ sensor}
+\DoxyCodeLine{│\ \ \ └──\ SensorTemp.h}
+\DoxyCodeLine{├──\ gui/\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \#\ Interface\ gráfica\ (Python/Qt\ +\ Matplotlib)}
+\DoxyCodeLine{│\ \ \ └──\ monitor.py}
+\DoxyCodeLine{├──\ docs/\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \#\ Documentação\ e\ relatórios}
+\DoxyCodeLine{│\ \ \ ├──\ diagramas/}
+\DoxyCodeLine{│\ \ \ └──\ relatorio.pdf}
+\DoxyCodeLine{├──\ build/\ \ \ \ \ \ \ \ \ \ \ \ \ \ \#\ Binários\ compilados}
+\DoxyCodeLine{├──\ Makefile\ \ \ \ \ \ \ \ \ \ \ \ \#\ Automação\ da\ compilação\ cruzada}
+\DoxyCodeLine{└──\ README.md\ \ \ \ \ \ \ \ \ \ \ \#\ Este\ arquivo}
+
+\end{DoxyCode}
+
+
+\DoxyHorRuler{0}
+\hypertarget{md_README_autotoc_md12}{}\doxysection{\texorpdfstring{🔧 Instalação e Execução}{🔧 Instalação e Execução}}\label{md_README_autotoc_md12}
+\hypertarget{md_README_autotoc_md13}{}\doxysubsection{\texorpdfstring{1. Compilação cruzada (C++ embarcado)}{1. Compilação cruzada (C++ embarcado)}}\label{md_README_autotoc_md13}
+Na VM/\+Linux com toolchain configurada\+: 
+\begin{DoxyCode}{0}
+\DoxyCodeLine{make}
+
+\end{DoxyCode}
+ O binário será gerado em {\ttfamily build/}.\hypertarget{md_README_autotoc_md14}{}\doxysubsection{\texorpdfstring{2. Deploy no kit}{2. Deploy no kit}}\label{md_README_autotoc_md14}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{scp\ build/sensor\ root@<ip\_da\_placa>:/home/root}
+
+\end{DoxyCode}
+\hypertarget{md_README_autotoc_md15}{}\doxysubsection{\texorpdfstring{3. Execução no kit}{3. Execução no kit}}\label{md_README_autotoc_md15}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{ssh\ root@<ip\_da\_placa>}
+\DoxyCodeLine{./sensor}
+
+\end{DoxyCode}
+\hypertarget{md_README_autotoc_md16}{}\doxysubsection{\texorpdfstring{4. Execução da interface no PC}{4. Execução da interface no PC}}\label{md_README_autotoc_md16}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{cd\ gui}
+\DoxyCodeLine{python3\ monitor.py}
+
+\end{DoxyCode}
+
+
+\DoxyHorRuler{0}
+\hypertarget{md_README_autotoc_md18}{}\doxysection{\texorpdfstring{📡 Protocolo de Comunicação}{📡 Protocolo de Comunicação}}\label{md_README_autotoc_md18}
+Formato das mensagens enviadas via UDP\+: 
+\begin{DoxyCode}{0}
+\DoxyCodeLine{<SENSOR\_ID>,<VALOR>,<UNIDADE>,<TIMESTAMP>}
+
+\end{DoxyCode}
+
+
+Exemplo\+: 
+\begin{DoxyCode}{0}
+\DoxyCodeLine{TEMP01,25.3,C,2025-\/09-\/06T18:30:25}
+
+\end{DoxyCode}
+
+
+\DoxyHorRuler{0}
+\hypertarget{md_README_autotoc_md20}{}\doxysection{\texorpdfstring{📚 Tecnologias Utilizadas}{📚 Tecnologias Utilizadas}}\label{md_README_autotoc_md20}
+
+\begin{DoxyItemize}
+\item {\bfseries{C++17}} – leitura e transmissão no embarcado ~\newline
+
+\item {\bfseries{Linux IIO Subsystem}} – acesso ao ADC ~\newline
+
+\item {\bfseries{UDP Socket}} – comunicação em tempo real ~\newline
+
+\item {\bfseries{Python 3 + Py\+Qt5 + Matplotlib}} – interface gráfica ~\newline
+
+\item {\bfseries{Doxygen}} – documentação do código ~\newline
+
+\end{DoxyItemize}
+
+\DoxyHorRuler{0}
+\hypertarget{md_README_autotoc_md22}{}\doxysection{\texorpdfstring{🚧 Melhorias Futuras}{🚧 Melhorias Futuras}}\label{md_README_autotoc_md22}
+
+\begin{DoxyItemize}
+\item 🔧 Ajuste dinâmico de limites de alerta via interface ~\newline
+
+\item 📊 Relatórios automáticos em PDF/\+CSV ~\newline
+
+\item 🌍 Integração com servidor em nuvem (IoT) ~\newline
+
+\item 🔋 Monitoramento de energia e estado da bateria ~\newline
+
+\end{DoxyItemize}
+
+\DoxyHorRuler{0}
+\hypertarget{md_README_autotoc_md24}{}\doxysection{\texorpdfstring{📸 Demonstração}{📸 Demonstração}}\label{md_README_autotoc_md24}
+{\itshape (incluir imagens/gifs da interface e da montagem do hardware quando disponíveis)} 
