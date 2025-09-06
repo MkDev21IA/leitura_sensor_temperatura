@@ -68,7 +68,7 @@ O sistema segue uma arquitetura **IoT modular**, permitindo integração futura 
 ### 1. Compilação cruzada (C++ embarcado)
 Na VM/Linux com toolchain configurada:
 ```bash
-$GXXCOMPILER .scr/SensorTemp.cpp -o ./build/sensor
+$GXXCOMPILER ./scr/SensorTemp.cpp -o ./build/sensor
 ```
 O binário será gerado em `build/`.
 
