@@ -46,12 +46,12 @@ A seguir, a pinagem para a conexão do sensor KY-013 ao kit STM32MP1 DK1.
 
 ## 4. Estrutura do Repositório
 
-├── build/ # Arquivos gerados pelo processo de compilação
-├── html/ # Documentação gerada em HTML (via Doxygen)
-├── latex/ # Documentação gerada em LaTeX/PDF (via Doxygen)
-├── scr/ # Código-fonte do projeto
-├── Doxyfile # Arquivo de configuração do Doxygen
-└── README.md # Documentação principal do projeto
+- build/ # Arquivos gerados pelo processo de compilação
+- html/ # Documentação gerada em HTML (via Doxygen)
+- latex/ # Documentação gerada em LaTeX/PDF (via Doxygen)
+- scr/ # Código-fonte do projeto
+- Doxyfile # Arquivo de configuração do Doxygen
+- README.md # Documentação principal do projeto
 
 ## 5. Instruções de Compilação e Execução
 
@@ -61,20 +61,24 @@ Primeiro, extraia o SDK: tar -xvf arm-buildroot-linux-gnueabihf_sdk-DK2.tar.gz
 
 - Depois, compile o programa: 
 
-cd src
-/opt/st/stm32mp1/arm-buildroot-linux-gnueabihf_sdk-DK2/bin/arm-linux-gcc -o SensorTemp SensorTemp.c
+```
+cd src/opt/st/stm32mp1/arm-buildroot-linux-gnueabihf_sdk-DK2/bin/arm-linux-gcc -o sensor sensor.c
+```
 
 - Envie o binário compilado para o kit via scp:
 
-scp -O leitura_sensor root@<ip_do_kit>:/home/root/
+```
+scp -O sensor root@<ip_do_kit>:/home/root/
+```
 
 <ip_do_kit> = 192.168.42.2
 
 - No kit de desenvolvimento, torne o binário executável e rode o programa:
 
-chmod +x SensorTemp
-./SensorTemp
-
+```
+chmod +x sensor
+./sensor
+```
 
 
 ## 6. Imagem da Leitura (Entrega 2)
