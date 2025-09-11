@@ -1,17 +1,7 @@
-# 🌡️ Monitoramento Remoto – Sensor de Temperatura Analógica
+# 🌡️ Leitura de Dados do Sensor - Sensor de Temperatura Analógica
 
-Sistema embarcado para **monitoramento remoto de condições térmicas**, desenvolvido com o **kit STM32MP1-DK1** e o sensor analógico **KY-013**, com transmissão contínua via **UDP** e supervisão em **interface gráfica multiplataforma**.
-
----
-
-## 🚀 Visão Geral
-Cargas sensíveis exigem **rastreabilidade e monitoramento constante**. Este projeto implementa um sistema embarcado que:
-- Lê a temperatura em tempo real pelo **ADC do STM32MP1-DK1**  
-- Converte o valor bruto para **graus Celsius**  
-- Transmite os dados via **UDP** para um servidor na rede local  
-- Exibe as leituras em uma **interface gráfica no PC**, com histórico e alertas configuráveis  
-
-O sistema segue uma arquitetura **IoT modular**, permitindo integração futura com outros sensores (umidade, luminosidade, vibração etc.).
+Este repositório contém o código-fonte e a documentação para um projeto de Desenvolvimento Embarcado realizado para a disciplina de **Programação Aplicada**.  
+O objetivo principal é demonstrar a comunicação e a leitura de dados de um **sensor de temperatura KY-013** utilizando o kit de desenvolvimento **STM32MP1 DK1**.
 
 ---
 
@@ -22,104 +12,71 @@ O sistema segue uma arquitetura **IoT modular**, permitindo integração futura 
 
 ---
 
-## 🛠️ Funcionalidades
-- 📡 **Aquisição de dados** via ADC (IIO Linux)  
-- 🔄 **Conversão** para °C com calibração linear  
-- 📤 **Transmissão UDP** em tempo real  
-- 🖥️ **Interface gráfica** com:
-  - Valor atual da temperatura  
-  - Histórico gráfico (últimos 60s)  
-  - Alertas visuais para valores fora da faixa segura  
-  - Exportação para CSV com timestamps  
+## 1. Visão Geral do Projeto
+O projeto foca na integração de hardware e software para adquirir dados do ambiente.  
+A leitura da temperatura é um exemplo prático que ilustra conceitos-chave como:
+- Configuração e uso de periféricos de comunicação.  
+- Manipulação de dados em tempo real.  
+- Exibição de resultados em um console serial.  
 
 ---
 
-## ⚙️ Arquitetura
-```
-[KY-013] → [ADC STM32MP1] → [Classe C++ SensorTemp]
-   ↓                               ↓
-   └──────────────→ UDP Socket → Servidor PC → Interface Gráfica
-```
+## 2. Pré-requisitos
 
-- **Embarcado (C++)**: leitura do ADC, conversão e envio UDP  
-- **Servidor/PC (Python/Qt)**: recepção, processamento e visualização  
+- Kit de desenvolvimento **STM32MP1**;  
+- SDK com **toolchain** de compilação cruzada (`arm-buildroot-linux-gnueabihf`);  
+- Conexão com o kit via **USB-C** e acesso por **serial (TeraTerm)** ou **rede (SSH)**;  
+- Programa `scp` para transferência de arquivos.
 
 ---
 
-## 📂 Estrutura do Repositório
-```
-├── src/                # Código embarcado (C++)
-│   ├── SensorTemp.cpp  # Classe do sensor
-│   └── SensorTemp.h
-├── gui/                # Interface gráfica (Python/Qt + Matplotlib)
-│   └── monitor.py
-├── docs/               # Documentação e relatórios
-│   ├── diagramas/
-│   └── relatorio.pdf
-├── build/              # Binários compilados
-├── Makefile            # Automação da compilação cruzada
-└── README.md           # Este arquivo
-```
+## 3. Montagem do Hardware
+A seguir, a pinagem para a conexão do sensor KY-013 ao kit STM32MP1 DK1.  
+**Certifique-se de que a placa está desligada antes de fazer as conexões.**
+
+| Pino do KY-013 | Função            | Pino do STM32MP1 DK1              |
+|----------------|------------------|-----------------------------------|
+| S              | Sinal Analógico  | `ADC_INx` (substituir `x` pelo ADC utilizado) |
+| VCC            | +3.3V            | 3.3V                              |
+| GND            | Terra            | GND                               |
+
+⚠️ **Atenção:** verifique sempre o datasheet do kit e do sensor para confirmar a pinagem exata.
 
 ---
 
-## 🔧 Instalação e Execução
+## 4. Estrutura do Repositório
 
-### 1. Compilação cruzada (C++ embarcado)
-Na VM/Linux com toolchain configurada:
-```bash
-$GXX ./scr/SensorTemp.cpp -o ./build/sensor
-```
-O binário será gerado em `build/`.
+├── build/ # Arquivos gerados pelo processo de compilação
+├── html/ # Documentação gerada em HTML (via Doxygen)
+├── latex/ # Documentação gerada em LaTeX/PDF (via Doxygen)
+├── scr/ # Código-fonte do projeto
+├── Doxyfile # Arquivo de configuração do Doxygen
+└── README.md # Documentação principal do projeto
 
-### 2. Deploy no kit
-```bash
-scp build/sensor root@<ip_da_placa>:/home/root
-```
+## 5. Instruções de Compilação e Execução
 
-### 3. Execução no kit
-```bash
-ssh root@<ip_da_placa>
-./sensor
-```
+### Compilação
+Utilizamos **compilação cruzada** para gerar o binário que será executado no kit **STM32MP1**.  
+Primeiro, extraia o SDK: tar -xvf arm-buildroot-linux-gnueabihf_sdk-DK2.tar.gz
 
-### 4. Execução da interface no PC
-```bash
-cd gui
-python3 monitor.py
-```
+- Depois, compile o programa: 
 
----
+cd src
+/opt/st/stm32mp1/arm-buildroot-linux-gnueabihf_sdk-DK2/bin/arm-linux-gcc -o SensorTemp SensorTemp.c
 
-## 📡 Protocolo de Comunicação
-Formato das mensagens enviadas via UDP:
-```
-<SENSOR_ID>,<VALOR>,<UNIDADE>,<TIMESTAMP>
-```
+- Envie o binário compilado para o kit via scp:
 
-Exemplo:
-```
-TEMP01,25.3,C,2025-09-06T18:30:25
-```
+scp -O leitura_sensor root@<ip_do_kit>:/home/root/
 
----
+<ip_do_kit> = 192.168.42.2
 
-## 📚 Tecnologias Utilizadas
-- **C++17** – leitura e transmissão no embarcado  
-- **Linux IIO Subsystem** – acesso ao ADC  
-- **UDP Socket** – comunicação em tempo real  
-- **Python 3 + PyQt5 + Matplotlib** – interface gráfica  
-- **Doxygen** – documentação do código  
+- No kit de desenvolvimento, torne o binário executável e rode o programa:
 
----
+chmod +x SensorTemp
+./SensorTemp
 
-## 🚧 Melhorias Futuras
-- 🔧 Ajuste dinâmico de limites de alerta via interface  
-- 📊 Relatórios automáticos em PDF/CSV  
-- 🌍 Integração com servidor em nuvem (IoT)  
-- 🔋 Monitoramento de energia e estado da bateria  
 
----
 
-## 📸 Demonstração
-*(incluir imagens/gifs da interface e da montagem do hardware quando disponíveis)*  
+## 6. Imagem da Leitura (Entrega 2)
+
+![Leitura da Temperatura](imagem_sensor.jpg)
