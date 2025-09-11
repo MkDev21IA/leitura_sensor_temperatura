@@ -62,7 +62,7 @@ Primeiro, extraia o SDK: tar -xvf arm-buildroot-linux-gnueabihf_sdk-DK2.tar.gz
 - Depois, compile o programa: 
 
 ```
-cd src/opt/st/stm32mp1/arm-buildroot-linux-gnueabihf_sdk-DK2/bin/arm-linux-gcc -o sensor sensor.c
+src/opt/st/stm32mp1/arm-buildroot-linux-gnueabihf_sdk-DK2/bin/arm-linux-g++ -o sensor SensorTemp.cpp
 ```
 
 - Envie o binário compilado para o kit via scp:
@@ -76,7 +76,7 @@ scp -O sensor root@<ip_do_kit>:/home/root/
 - No kit de desenvolvimento, torne o binário executável e rode o programa:
 
 ```
-chmod +x sensor
+chmod +x SensorTemp.cpp
 ./sensor
 ```
 
