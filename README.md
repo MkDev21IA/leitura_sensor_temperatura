@@ -172,7 +172,3 @@ A imagem abaixo mostra o programa em execução, exibindo as leituras de tempera
 
 -   
 
-
----
-
-## 3. Estrutura do Repositório
