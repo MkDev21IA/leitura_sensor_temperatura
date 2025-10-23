@@ -1,0 +1,46 @@
+\doxysection{udp\+\_\+protocol.\+hpp}
+\hypertarget{src_2udp__protocol_8hpp_source}{}\label{src_2udp__protocol_8hpp_source}\index{embarcado/src/udp\_protocol.hpp@{embarcado/src/udp\_protocol.hpp}}
+\mbox{\hyperlink{src_2udp__protocol_8hpp}{Go to the documentation of this file.}}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ }
+\DoxyCodeLine{00009\ }
+\DoxyCodeLine{00010\ \textcolor{preprocessor}{\#ifndef\ UDP\_PROTOCOL\_HPP}}
+\DoxyCodeLine{00011\ \textcolor{preprocessor}{\#define\ UDP\_PROTOCOL\_HPP}}
+\DoxyCodeLine{00012\ }
+\DoxyCodeLine{00013\ \textcolor{preprocessor}{\#include\ <string>}}
+\DoxyCodeLine{00014\ \textcolor{preprocessor}{\#include\ <sstream>}}
+\DoxyCodeLine{00015\ \textcolor{preprocessor}{\#include\ <iomanip>}}
+\DoxyCodeLine{00016\ \textcolor{preprocessor}{\#include\ <ctime>}}
+\DoxyCodeLine{00017\ }
+\DoxyCodeLine{00026\ \textcolor{keyword}{struct\ }\mbox{\hyperlink{structUdpPacket}{UdpPacket}}\ \{}
+\DoxyCodeLine{00027\ \ \ \ \ std::string\ \mbox{\hyperlink{structUdpPacket_a669442fbb120fef183a4c50e617bdd4e}{group\_id}};\ \ \ }
+\DoxyCodeLine{00028\ \ \ \ \ std::string\ \mbox{\hyperlink{structUdpPacket_a778d21933c770538770d06b2d2082fca}{sensor\_id}};\ \ }
+\DoxyCodeLine{00029\ \ \ \ \ \textcolor{keywordtype}{double}\ \mbox{\hyperlink{structUdpPacket_a3f33c17ce3249497c77617fcbf94c093}{value}};\ \ \ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{00030\ \ \ \ \ std::string\ \mbox{\hyperlink{structUdpPacket_a9a10f7dca634175ca94d8a6f1e53e5d9}{unit}};\ \ \ \ \ \ \ }
+\DoxyCodeLine{00031\ \ \ \ \ std::string\ \mbox{\hyperlink{structUdpPacket_ad9a6ba12832737cf4eb691384b210c0b}{timestamp}};\ \ }
+\DoxyCodeLine{00032\ \};}
+\DoxyCodeLine{00033\ }
+\DoxyCodeLine{00041\ \textcolor{keyword}{inline}\ std::string\ \mbox{\hyperlink{include_2udp__protocol_8hpp_aa125a1f0d177e5221583df8d73461eb2}{currentTimestamp}}()\ \{}
+\DoxyCodeLine{00042\ \ \ \ \ std::time\_t\ t\ =\ std::time(\textcolor{keyword}{nullptr});}
+\DoxyCodeLine{00043\ \ \ \ \ std::tm\ *gmt\ =\ std::gmtime(\&t);}
+\DoxyCodeLine{00044\ \ \ \ \ \textcolor{keywordtype}{char}\ buf[64];}
+\DoxyCodeLine{00045\ \ \ \ \ std::strftime(buf,\ \textcolor{keyword}{sizeof}(buf),\ \textcolor{stringliteral}{"{}\%Y-\/\%m-\/\%dT\%H:\%M:\%SZ"{}},\ gmt);}
+\DoxyCodeLine{00046\ \ \ \ \ \textcolor{keywordflow}{return}\ std::string(buf);}
+\DoxyCodeLine{00047\ \}}
+\DoxyCodeLine{00048\ }
+\DoxyCodeLine{00069\ \textcolor{keyword}{inline}\ std::string\ \mbox{\hyperlink{include_2udp__protocol_8hpp_a98f320c1f57d570438d69cabd9677658}{serialize}}(\textcolor{keyword}{const}\ \mbox{\hyperlink{structUdpPacket}{UdpPacket}}\ \&p)\ \{}
+\DoxyCodeLine{00070\ \ \ \ \ std::ostringstream\ oss;}
+\DoxyCodeLine{00071\ \ \ \ \ oss\ <<\ \textcolor{stringliteral}{"{}\{"{}};}
+\DoxyCodeLine{00072\ \ \ \ \ oss\ <<\ \textcolor{stringliteral}{"{}\(\backslash\)"{}group\(\backslash\)"{}:\(\backslash\)"{}"{}}\ <<\ p.\mbox{\hyperlink{structUdpPacket_a669442fbb120fef183a4c50e617bdd4e}{group\_id}}\ <<\ \textcolor{stringliteral}{"{}\(\backslash\)"{},"{}};}
+\DoxyCodeLine{00073\ \ \ \ \ oss\ <<\ \textcolor{stringliteral}{"{}\(\backslash\)"{}sensor\_id\(\backslash\)"{}:\(\backslash\)"{}"{}}\ <<\ p.\mbox{\hyperlink{structUdpPacket_a778d21933c770538770d06b2d2082fca}{sensor\_id}}\ <<\ \textcolor{stringliteral}{"{}\(\backslash\)"{},"{}};}
+\DoxyCodeLine{00074\ \ \ \ \ oss\ <<\ \textcolor{stringliteral}{"{}\(\backslash\)"{}value\(\backslash\)"{}:"{}}\ <<\ std::fixed\ <<\ std::setprecision(2)\ <<\ p.\mbox{\hyperlink{structUdpPacket_a3f33c17ce3249497c77617fcbf94c093}{value}}\ <<\ \textcolor{stringliteral}{"{},"{}};}
+\DoxyCodeLine{00075\ \ \ \ \ oss\ <<\ \textcolor{stringliteral}{"{}\(\backslash\)"{}unit\(\backslash\)"{}:\(\backslash\)"{}"{}}\ <<\ p.\mbox{\hyperlink{structUdpPacket_a9a10f7dca634175ca94d8a6f1e53e5d9}{unit}}\ <<\ \textcolor{stringliteral}{"{}\(\backslash\)"{},"{}};}
+\DoxyCodeLine{00076\ \ \ \ \ oss\ <<\ \textcolor{stringliteral}{"{}\(\backslash\)"{}ts\(\backslash\)"{}:\(\backslash\)"{}"{}}\ <<\ p.\mbox{\hyperlink{structUdpPacket_ad9a6ba12832737cf4eb691384b210c0b}{timestamp}}\ <<\ \textcolor{stringliteral}{"{}\(\backslash\)"{}"{}};}
+\DoxyCodeLine{00077\ \ \ \ \ oss\ <<\ \textcolor{stringliteral}{"{}\}"{}};}
+\DoxyCodeLine{00078\ \ \ \ \ \textcolor{keywordflow}{return}\ oss.str();}
+\DoxyCodeLine{00079\ \}}
+\DoxyCodeLine{00080\ }
+\DoxyCodeLine{00081\ \textcolor{preprocessor}{\#endif\ }\textcolor{comment}{//\ UDP\_PROTOCOL\_HPP}}
+\DoxyCodeLine{00082\ }
+
+\end{DoxyCode}

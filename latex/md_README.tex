@@ -1,0 +1,124 @@
+\chapter{🌡️ Leitura de Dados do Sensor -\/ Sensor de Temperatura Analógica }
+\hypertarget{md_README}{}\label{md_README}\index{🌡️ Leitura de Dados do Sensor -\/ Sensor de Temperatura Analógica@{🌡️ Leitura de Dados do Sensor -\/ Sensor de Temperatura Analógica}}
+\label{md_README_autotoc_md2}%
+\Hypertarget{md_README_autotoc_md2}%
+
+
+Este repositório contém o código-\/fonte e a documentação para um projeto de Desenvolvimento Embarcado realizado para a disciplina de {\bfseries{Programação Aplicada}}. ~\newline
+ O objetivo principal é demonstrar a comunicação e a leitura de dados de um {\bfseries{sensor de temperatura KY-\/013}} utilizando o kit de desenvolvimento {\bfseries{STM32\+MP1 DK1}}.
+
+\DoxyHorRuler{0}
+\hypertarget{md_README_autotoc_md4}{}\doxysection{\texorpdfstring{👥 Equipe}{👥 Equipe}}\label{md_README_autotoc_md4}
+
+\begin{DoxyItemize}
+\item {\bfseries{Mikhael Silveira}} – Engenharia Eletrônica ~\newline
+
+\item {\bfseries{Rafael Sodré}} – Engenharia Elétrica ~\newline
+
+\item {\bfseries{Marcos Vinícius}} – Engenharia de Comunicações ~\newline
+
+\end{DoxyItemize}
+
+\DoxyHorRuler{0}
+\hypertarget{md_README_autotoc_md6}{}\doxysection{\texorpdfstring{1. Visão Geral do Projeto}{1. Visão Geral do Projeto}}\label{md_README_autotoc_md6}
+O projeto foca na integração de hardware e software para adquirir dados do ambiente. ~\newline
+ A leitura da temperatura é um exemplo prático que ilustra conceitos-\/chave como\+:
+\begin{DoxyItemize}
+\item Configuração e uso de periféricos de comunicação. ~\newline
+
+\item Manipulação de dados em tempo real. ~\newline
+
+\item Exibição de resultados em um console serial. ~\newline
+
+\end{DoxyItemize}
+
+\DoxyHorRuler{0}
+\hypertarget{md_README_autotoc_md8}{}\doxysection{\texorpdfstring{2. Pré-\/requisitos}{2. Pré-\/requisitos}}\label{md_README_autotoc_md8}
+
+\begin{DoxyItemize}
+\item Kit de desenvolvimento {\bfseries{STM32\+MP1}}; ~\newline
+
+\item SDK com {\bfseries{toolchain}} de compilação cruzada ({\ttfamily arm-\/buildroot-\/linux-\/gnueabihf}); ~\newline
+
+\item Conexão com o kit via {\bfseries{USB-\/C}} e acesso por {\bfseries{serial (Tera\+Term)}} ou {\bfseries{rede (SSH)}}; ~\newline
+
+\item Programa {\ttfamily scp} para transferência de arquivos.
+\end{DoxyItemize}
+
+\DoxyHorRuler{0}
+\hypertarget{md_README_autotoc_md10}{}\doxysection{\texorpdfstring{3. Montagem do Hardware}{3. Montagem do Hardware}}\label{md_README_autotoc_md10}
+A seguir, a pinagem para a conexão do sensor KY-\/013 ao kit STM32\+MP1 DK1. ~\newline
+ {\bfseries{Certifique-\/se de que a placa está desligada antes de fazer as conexões.}}
+
+\tabulinesep=1mm
+\begin{longtabu}spread 0pt [c]{*{3}{|X[-1]}|}
+\hline
+\PBS\centering \cellcolor{\tableheadbgcolor}\textbf{ Pino do KY-\/013  }&\PBS\centering \cellcolor{\tableheadbgcolor}\textbf{ Função  }&\PBS\centering \cellcolor{\tableheadbgcolor}\textbf{ Pino do STM32\+MP1 DK1  }\\\cline{1-3}
+\endfirsthead
+\hline
+\endfoot
+\hline
+\PBS\centering \cellcolor{\tableheadbgcolor}\textbf{ Pino do KY-\/013  }&\PBS\centering \cellcolor{\tableheadbgcolor}\textbf{ Função  }&\PBS\centering \cellcolor{\tableheadbgcolor}\textbf{ Pino do STM32\+MP1 DK1  }\\\cline{1-3}
+\endhead
+S  &Sinal Analógico  &{\ttfamily ADC\+\_\+\+INx} (substituir {\ttfamily x} pelo ADC utilizado)  \\\cline{1-3}
+VCC  &+3.\+3V  &3.\+3V  \\\cline{1-3}
+GND  &Terra  &GND  \\\cline{1-3}
+\end{longtabu}
+
+
+⚠️ {\bfseries{Atenção\+:}} verifique sempre o datasheet do kit e do sensor para confirmar a pinagem exata.
+
+\DoxyHorRuler{0}
+\hypertarget{md_README_autotoc_md12}{}\doxysection{\texorpdfstring{4. Estrutura do Repositório}{4. Estrutura do Repositório}}\label{md_README_autotoc_md12}
+
+\begin{DoxyItemize}
+\item build/ \# Arquivos gerados pelo processo de compilação
+\item html/ \# Documentação gerada em HTML (via Doxygen)
+\item latex/ \# Documentação gerada em La\+Te\+X/\+PDF (via Doxygen)
+\item scr/ \# Código-\/fonte do projeto
+\item Doxyfile \# Arquivo de configuração do Doxygen
+\item README.\+md \# Documentação principal do projeto
+\end{DoxyItemize}\hypertarget{md_README_autotoc_md13}{}\doxysection{\texorpdfstring{5. Instruções de Compilação e Execução}{5. Instruções de Compilação e Execução}}\label{md_README_autotoc_md13}
+\hypertarget{md_README_autotoc_md14}{}\doxysubsection{\texorpdfstring{Compilação}{Compilação}}\label{md_README_autotoc_md14}
+Utilizamos {\bfseries{compilação cruzada}} para gerar o binário que será executado no kit {\bfseries{STM32\+MP1}}. ~\newline
+ Primeiro, extraia o SDK\+: tar -\/xvf arm-\/buildroot-\/linux-\/gnueabihf\+\_\+sdk-\/\+DK2.\+tar.\+gz
+
+
+\begin{DoxyItemize}
+\item Depois, compile o programa\+:
+\end{DoxyItemize}
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{arm-\/ostl-\/linux-\/gnueabi-\/g++\ src/*.cpp\ -\/Iinclude\ -\/o\ sensor}
+
+\end{DoxyCode}
+
+
+
+\begin{DoxyItemize}
+\item Envie o binário compilado para o kit via scp\+:
+\end{DoxyItemize}
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{scp\ -\/O\ sensor\ root@<ip\_do\_kit>:/home/root/}
+
+\end{DoxyCode}
+
+
+$<$ip\+\_\+do\+\_\+kit$>$ = 192.\+168.\+42.\+2
+
+
+\begin{DoxyItemize}
+\item No kit de desenvolvimento, torne o binário executável e rode o programa\+:
+\end{DoxyItemize}
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{chmod\ +x\ sensor}
+\DoxyCodeLine{./sensor}
+
+\end{DoxyCode}
+\hypertarget{md_README_autotoc_md15}{}\doxysection{\texorpdfstring{6. Imagem da Leitura (Entrega 2)}{6. Imagem da Leitura (Entrega 2)}}\label{md_README_autotoc_md15}
+ 

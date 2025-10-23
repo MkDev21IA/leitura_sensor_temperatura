@@ -1,0 +1,89 @@
+\doxysection{embarcado/src/main.cpp File Reference}
+\hypertarget{main_8cpp}{}\label{main_8cpp}\index{embarcado/src/main.cpp@{embarcado/src/main.cpp}}
+
+
+Programa principal para leitura de sensor e envio periódico de dados via UDP.  
+
+
+{\ttfamily \#include "{}sensor.\+hpp"{}}\newline
+{\ttfamily \#include "{}utils.\+hpp"{}}\newline
+{\ttfamily \#include "{}udp\+\_\+client.\+hpp"{}}\newline
+{\ttfamily \#include "{}data\+\_\+formatter.\+hpp"{}}\newline
+{\ttfamily \#include "{}udp\+\_\+protocol.\+hpp"{}}\newline
+{\ttfamily \#include $<$iostream$>$}\newline
+{\ttfamily \#include $<$thread$>$}\newline
+{\ttfamily \#include $<$chrono$>$}\newline
+{\ttfamily \#include $<$sstream$>$}\newline
+\doxysubsubsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+float \mbox{\hyperlink{main_8cpp_a7bc8fec1dc1e024c1270c3c798f12ea4}{get\+Temperature}} ()
+\begin{DoxyCompactList}\small\item\em Função externa que lê a temperatura do sensor embarcado. \end{DoxyCompactList}\item 
+int \mbox{\hyperlink{main_8cpp_ae66f6b31b5ad750f1fe042a706a4e3d4}{main}} ()
+\begin{DoxyCompactList}\small\item\em Função principal da aplicação. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+Programa principal para leitura de sensor e envio periódico de dados via UDP. 
+
+Este módulo inicializa a comunicação UDP, realiza leituras periódicas de temperatura e envia as informações formatadas em JSON para um servidor remoto.
+
+O ciclo principal executa continuamente\+:
+\begin{DoxyItemize}
+\item Lê a temperatura do sensor (via função {\ttfamily \doxylink{main_8cpp_a7bc8fec1dc1e024c1270c3c798f12ea4}{get\+Temperature()}}).
+\item Monta um pacote {\ttfamily \doxylink{structUdpPacket}{Udp\+Packet}} com metadados e timestamp.
+\item Serializa o pacote em JSON.
+\item Envia o JSON via {\ttfamily \doxylink{classUDPClient}{UDPClient}} a cada 1 segundo. 
+\end{DoxyItemize}
+
+\label{doc-func-members}
+\Hypertarget{main_8cpp_doc-func-members}
+\doxysubsection{Function Documentation}
+\Hypertarget{main_8cpp_a7bc8fec1dc1e024c1270c3c798f12ea4}\index{main.cpp@{main.cpp}!getTemperature@{getTemperature}}
+\index{getTemperature@{getTemperature}!main.cpp@{main.cpp}}
+\doxysubsubsection{\texorpdfstring{getTemperature()}{getTemperature()}}
+{\footnotesize\ttfamily \label{main_8cpp_a7bc8fec1dc1e024c1270c3c798f12ea4} 
+float get\+Temperature (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [extern]}}
+
+
+
+Função externa que lê a temperatura do sensor embarcado. 
+
+Esta função é implementada em outro módulo ({\ttfamily \doxylink{main__embarcado_8cpp}{main\+\_\+embarcado.\+cpp}}) e fornece o valor da temperatura em graus Celsius.
+
+\begin{DoxyReturn}{Returns}
+Temperatura medida em °C.
+\end{DoxyReturn}
+Função externa que lê a temperatura do sensor embarcado.
+
+Utiliza um objeto estático da classe {\ttfamily \doxylink{classSensor}{Sensor}} para garantir que a inicialização do sensor ocorra apenas uma vez. A função retorna o valor convertido em graus Celsius.
+
+\begin{DoxyReturn}{Returns}
+Temperatura medida pelo sensor em °C. 
+\end{DoxyReturn}
+\texorpdfstring{$<$}{<} Objeto estático que representa o sensor.
+
+\texorpdfstring{$<$}{<} Retorna o valor convertido da leitura ADC.\Hypertarget{main_8cpp_ae66f6b31b5ad750f1fe042a706a4e3d4}\index{main.cpp@{main.cpp}!main@{main}}
+\index{main@{main}!main.cpp@{main.cpp}}
+\doxysubsubsection{\texorpdfstring{main()}{main()}}
+{\footnotesize\ttfamily \label{main_8cpp_ae66f6b31b5ad750f1fe042a706a4e3d4} 
+int main (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption})}
+
+
+
+Função principal da aplicação. 
+
+Inicializa o cliente UDP e executa um loop contínuo que\+:
+\begin{DoxyEnumerate}
+\item Lê a temperatura do sensor.
+\item Cria um pacote {\ttfamily \doxylink{structUdpPacket}{Udp\+Packet}} com as informações do sensor.
+\item Serializa o pacote em JSON.
+\item Envia os dados ao servidor via UDP.
+\end{DoxyEnumerate}
+
+Em caso de falha no envio, é exibida uma mensagem de erro no console. O envio é repetido a cada 1 segundo.
+
+\begin{DoxyReturn}{Returns}
+Código de status do programa (0 = sucesso). 
+\end{DoxyReturn}
+\texorpdfstring{$<$}{<} Cliente UDP para envio de pacotes.

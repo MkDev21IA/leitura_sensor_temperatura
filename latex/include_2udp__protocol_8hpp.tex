@@ -1,0 +1,81 @@
+\doxysection{embarcado/include/udp\+\_\+protocol.hpp File Reference}
+\hypertarget{include_2udp__protocol_8hpp}{}\label{include_2udp__protocol_8hpp}\index{embarcado/include/udp\_protocol.hpp@{embarcado/include/udp\_protocol.hpp}}
+
+
+Estruturas e funções auxiliares para o envio e formatação de pacotes UDP em formato JSON.  
+
+
+{\ttfamily \#include $<$string$>$}\newline
+{\ttfamily \#include $<$sstream$>$}\newline
+{\ttfamily \#include $<$iomanip$>$}\newline
+{\ttfamily \#include $<$ctime$>$}\newline
+\doxysubsubsection*{Classes}
+\begin{DoxyCompactItemize}
+\item 
+struct \mbox{\hyperlink{structUdpPacket}{Udp\+Packet}}
+\begin{DoxyCompactList}\small\item\em Representa um pacote de dados UDP no formato JSON. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsubsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+std\+::string \mbox{\hyperlink{include_2udp__protocol_8hpp_aa125a1f0d177e5221583df8d73461eb2}{current\+Timestamp}} ()
+\begin{DoxyCompactList}\small\item\em Gera um timestamp atual em UTC no formato ISO8601. \end{DoxyCompactList}\item 
+std\+::string \mbox{\hyperlink{include_2udp__protocol_8hpp_a98f320c1f57d570438d69cabd9677658}{serialize}} (const \mbox{\hyperlink{structUdpPacket}{Udp\+Packet}} \&p)
+\begin{DoxyCompactList}\small\item\em Serializa uma estrutura {\ttfamily \doxylink{structUdpPacket}{Udp\+Packet}} em formato JSON. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+Estruturas e funções auxiliares para o envio e formatação de pacotes UDP em formato JSON. 
+
+Este arquivo define a estrutura de dados {\ttfamily \doxylink{structUdpPacket}{Udp\+Packet}} e funções utilitárias para gerar timestamps e serializar os pacotes no formato JSON, utilizados na comunicação entre sensores e o servidor. 
+
+\label{doc-func-members}
+\Hypertarget{include_2udp__protocol_8hpp_doc-func-members}
+\doxysubsection{Function Documentation}
+\Hypertarget{include_2udp__protocol_8hpp_aa125a1f0d177e5221583df8d73461eb2}\index{udp\_protocol.hpp@{udp\_protocol.hpp}!currentTimestamp@{currentTimestamp}}
+\index{currentTimestamp@{currentTimestamp}!udp\_protocol.hpp@{udp\_protocol.hpp}}
+\doxysubsubsection{\texorpdfstring{currentTimestamp()}{currentTimestamp()}}
+{\footnotesize\ttfamily \label{include_2udp__protocol_8hpp_aa125a1f0d177e5221583df8d73461eb2} 
+std\+::string current\+Timestamp (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Gera um timestamp atual em UTC no formato ISO8601. 
+
+Exemplo de saída\+: {\ttfamily "{}2025-\/10-\/22\+T22\+:15\+:30\+Z"{}}.
+
+\begin{DoxyReturn}{Returns}
+String contendo o timestamp atual no formato ISO8601. 
+\end{DoxyReturn}
+\Hypertarget{include_2udp__protocol_8hpp_a98f320c1f57d570438d69cabd9677658}\index{udp\_protocol.hpp@{udp\_protocol.hpp}!serialize@{serialize}}
+\index{serialize@{serialize}!udp\_protocol.hpp@{udp\_protocol.hpp}}
+\doxysubsubsection{\texorpdfstring{serialize()}{serialize()}}
+{\footnotesize\ttfamily \label{include_2udp__protocol_8hpp_a98f320c1f57d570438d69cabd9677658} 
+std\+::string serialize (\begin{DoxyParamCaption}\item[{const \mbox{\hyperlink{structUdpPacket}{Udp\+Packet}} \&}]{p}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Serializa uma estrutura {\ttfamily \doxylink{structUdpPacket}{Udp\+Packet}} em formato JSON. 
+
+Converte os dados do pacote para uma string JSON simples, adequada para envio via rede UDP.
+
+Exemplo de saída\+: 
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\{}
+\DoxyCodeLine{\ \ \textcolor{stringliteral}{"{}group"{}}:\textcolor{stringliteral}{"{}Temperatura"{}},}
+\DoxyCodeLine{\ \ \textcolor{stringliteral}{"{}sensor\_id"{}}:\textcolor{stringliteral}{"{}Sensor1"{}},}
+\DoxyCodeLine{\ \ \textcolor{stringliteral}{"{}value"{}}:25.34,}
+\DoxyCodeLine{\ \ \textcolor{stringliteral}{"{}unit"{}}:\textcolor{stringliteral}{"{}°C"{}},}
+\DoxyCodeLine{\ \ \textcolor{stringliteral}{"{}ts"{}}:\textcolor{stringliteral}{"{}2025-\/10-\/22T22:15:30Z"{}}}
+\DoxyCodeLine{\}}
+
+\end{DoxyCode}
+
+
+
+\begin{DoxyParams}{Parameters}
+{\em p} & Estrutura {\ttfamily \doxylink{structUdpPacket}{Udp\+Packet}} a ser serializada. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+String contendo os dados do pacote em formato JSON. 
+\end{DoxyReturn}

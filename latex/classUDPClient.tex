@@ -1,0 +1,165 @@
+\doxysection{UDPClient Class Reference}
+\hypertarget{classUDPClient}{}\label{classUDPClient}\index{UDPClient@{UDPClient}}
+
+
+Classe para envio de dados via UDP.  
+
+
+
+
+{\ttfamily \#include $<$udp\+\_\+client.\+hpp$>$}
+
+\doxysubsubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{classUDPClient_a20f137e41b92f53e7cb2c7bfe2dd3986}{UDPClient}} (const std\+::string \&ip, int port)
+\begin{DoxyCompactList}\small\item\em Construtor da classe \doxylink{classUDPClient}{UDPClient}. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{classUDPClient_a34f070027c8fa69813efcf9100d7e35d}{\texorpdfstring{$\sim$}{\string~}\+UDPClient}} ()
+\begin{DoxyCompactList}\small\item\em Destrutor da classe \doxylink{classUDPClient}{UDPClient}. \end{DoxyCompactList}\item 
+bool \mbox{\hyperlink{classUDPClient_a1c47d63a3f1bc611421abf3e7b2df8e7}{send\+Data}} (const std\+::string \&data)
+\begin{DoxyCompactList}\small\item\em Envia dados via UDP para o servidor configurado. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{classUDPClient_a20f137e41b92f53e7cb2c7bfe2dd3986}{UDPClient}} (const std\+::string \&ip, int port)
+\begin{DoxyCompactList}\small\item\em Construtor da classe \doxylink{classUDPClient}{UDPClient}. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{classUDPClient_a34f070027c8fa69813efcf9100d7e35d}{\texorpdfstring{$\sim$}{\string~}\+UDPClient}} ()
+\begin{DoxyCompactList}\small\item\em Destrutor da classe \doxylink{classUDPClient}{UDPClient}. \end{DoxyCompactList}\item 
+bool \mbox{\hyperlink{classUDPClient_a1c47d63a3f1bc611421abf3e7b2df8e7}{send\+Data}} (const std\+::string \&data)
+\begin{DoxyCompactList}\small\item\em Envia dados via UDP para o servidor configurado. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+Classe para envio de dados via UDP. 
+
+A classe abstrai a criação do socket, configuração do endereço do servidor e envio de pacotes de dados no formato texto. 
+
+\label{doc-constructors}
+\Hypertarget{classUDPClient_doc-constructors}
+\doxysubsection{Constructor \& Destructor Documentation}
+\Hypertarget{classUDPClient_a20f137e41b92f53e7cb2c7bfe2dd3986}\index{UDPClient@{UDPClient}!UDPClient@{UDPClient}}
+\index{UDPClient@{UDPClient}!UDPClient@{UDPClient}}
+\doxysubsubsection{\texorpdfstring{UDPClient()}{UDPClient()}\hspace{0.1cm}{\footnotesize\ttfamily [1/2]}}
+{\footnotesize\ttfamily \label{classUDPClient_a20f137e41b92f53e7cb2c7bfe2dd3986} 
+UDPClient\+::\+UDPClient (\begin{DoxyParamCaption}\item[{const std\+::string \&}]{ip}{, }\item[{int}]{port}{}\end{DoxyParamCaption})}
+
+
+
+Construtor da classe \doxylink{classUDPClient}{UDPClient}. 
+
+Cria um cliente UDP e armazena o endereço IP e a porta do servidor para o qual os dados serão enviados.
+
+
+\begin{DoxyParams}{Parameters}
+{\em ip} & Endereço IP do servidor de destino (ex\+: "{}192.\+168.\+0.\+10"{}). \\
+\hline
+{\em port} & Porta UDP do servidor de destino.\\
+\hline
+\end{DoxyParams}
+Cria um socket UDP e armazena o endereço IP e a porta do servidor destino. Caso ocorra erro na criação do socket, uma mensagem é exibida no console.
+
+
+\begin{DoxyParams}{Parameters}
+{\em ip} & Endereço IP do servidor (ex\+: "{}127.\+0.\+0.\+1"{}). \\
+\hline
+{\em port} & Porta UDP do servidor. \\
+\hline
+\end{DoxyParams}
+\Hypertarget{classUDPClient_a34f070027c8fa69813efcf9100d7e35d}\index{UDPClient@{UDPClient}!````~UDPClient@{\texorpdfstring{$\sim$}{\string~}UDPClient}}
+\index{````~UDPClient@{\texorpdfstring{$\sim$}{\string~}UDPClient}!UDPClient@{UDPClient}}
+\doxysubsubsection{\texorpdfstring{\texorpdfstring{$\sim$}{\string~}UDPClient()}{\string~UDPClient()}\hspace{0.1cm}{\footnotesize\ttfamily [1/2]}}
+{\footnotesize\ttfamily \label{classUDPClient_a34f070027c8fa69813efcf9100d7e35d} 
+UDPClient\+::\texorpdfstring{$\sim$}{\string~}\+UDPClient (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption})}
+
+
+
+Destrutor da classe \doxylink{classUDPClient}{UDPClient}. 
+
+Fecha o socket UDP, se estiver aberto.
+
+Fecha o socket UDP, se ele estiver aberto. \Hypertarget{classUDPClient_a20f137e41b92f53e7cb2c7bfe2dd3986}\index{UDPClient@{UDPClient}!UDPClient@{UDPClient}}
+\index{UDPClient@{UDPClient}!UDPClient@{UDPClient}}
+\doxysubsubsection{\texorpdfstring{UDPClient()}{UDPClient()}\hspace{0.1cm}{\footnotesize\ttfamily [2/2]}}
+{\footnotesize\ttfamily \label{classUDPClient_a20f137e41b92f53e7cb2c7bfe2dd3986} 
+UDPClient\+::\+UDPClient (\begin{DoxyParamCaption}\item[{const std\+::string \&}]{ip}{, }\item[{int}]{port}{}\end{DoxyParamCaption})}
+
+
+
+Construtor da classe \doxylink{classUDPClient}{UDPClient}. 
+
+Cria um cliente UDP e armazena o endereço IP e a porta do servidor para o qual os dados serão enviados.
+
+
+\begin{DoxyParams}{Parameters}
+{\em ip} & Endereço IP do servidor de destino (ex\+: "{}192.\+168.\+0.\+10"{}). \\
+\hline
+{\em port} & Porta UDP do servidor de destino. \\
+\hline
+\end{DoxyParams}
+\Hypertarget{classUDPClient_a34f070027c8fa69813efcf9100d7e35d}\index{UDPClient@{UDPClient}!````~UDPClient@{\texorpdfstring{$\sim$}{\string~}UDPClient}}
+\index{````~UDPClient@{\texorpdfstring{$\sim$}{\string~}UDPClient}!UDPClient@{UDPClient}}
+\doxysubsubsection{\texorpdfstring{\texorpdfstring{$\sim$}{\string~}UDPClient()}{\string~UDPClient()}\hspace{0.1cm}{\footnotesize\ttfamily [2/2]}}
+{\footnotesize\ttfamily \label{classUDPClient_a34f070027c8fa69813efcf9100d7e35d} 
+UDPClient\+::\texorpdfstring{$\sim$}{\string~}\+UDPClient (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption})}
+
+
+
+Destrutor da classe \doxylink{classUDPClient}{UDPClient}. 
+
+Fecha o socket UDP, se estiver aberto. 
+
+\label{doc-func-members}
+\Hypertarget{classUDPClient_doc-func-members}
+\doxysubsection{Member Function Documentation}
+\Hypertarget{classUDPClient_a1c47d63a3f1bc611421abf3e7b2df8e7}\index{UDPClient@{UDPClient}!sendData@{sendData}}
+\index{sendData@{sendData}!UDPClient@{UDPClient}}
+\doxysubsubsection{\texorpdfstring{sendData()}{sendData()}\hspace{0.1cm}{\footnotesize\ttfamily [1/2]}}
+{\footnotesize\ttfamily \label{classUDPClient_a1c47d63a3f1bc611421abf3e7b2df8e7} 
+bool UDPClient\+::send\+Data (\begin{DoxyParamCaption}\item[{const std\+::string \&}]{data}{}\end{DoxyParamCaption})}
+
+
+
+Envia dados via UDP para o servidor configurado. 
+
+Envia dados para o servidor via UDP.
+
+
+\begin{DoxyParams}{Parameters}
+{\em data} & String contendo os dados a serem enviados. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+{\ttfamily true} se o envio for bem-\/sucedido, {\ttfamily false} em caso de erro.
+\end{DoxyReturn}
+Configura a estrutura sockaddr\+\_\+in com IP e porta do servidor, e envia a string de dados usando {\ttfamily sendto()}.
+
+
+\begin{DoxyParams}{Parameters}
+{\em data} & String contendo os dados a serem enviados. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+{\ttfamily true} se todos os bytes foram enviados corretamente, {\ttfamily false} em caso de erro. 
+\end{DoxyReturn}
+\Hypertarget{classUDPClient_a1c47d63a3f1bc611421abf3e7b2df8e7}\index{UDPClient@{UDPClient}!sendData@{sendData}}
+\index{sendData@{sendData}!UDPClient@{UDPClient}}
+\doxysubsubsection{\texorpdfstring{sendData()}{sendData()}\hspace{0.1cm}{\footnotesize\ttfamily [2/2]}}
+{\footnotesize\ttfamily \label{classUDPClient_a1c47d63a3f1bc611421abf3e7b2df8e7} 
+bool UDPClient\+::send\+Data (\begin{DoxyParamCaption}\item[{const std\+::string \&}]{data}{}\end{DoxyParamCaption})}
+
+
+
+Envia dados via UDP para o servidor configurado. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em data} & String contendo os dados a serem enviados. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+{\ttfamily true} se o envio for bem-\/sucedido, {\ttfamily false} em caso de erro. 
+\end{DoxyReturn}
+
+
+The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
+\item 
+embarcado/include/\mbox{\hyperlink{include_2udp__client_8hpp}{udp\+\_\+client.\+hpp}}\item 
+embarcado/src/\mbox{\hyperlink{src_2udp__client_8hpp}{udp\+\_\+client.\+hpp}}\item 
+embarcado/src/\mbox{\hyperlink{udp__client_8cpp}{udp\+\_\+client.\+cpp}}\end{DoxyCompactItemize}

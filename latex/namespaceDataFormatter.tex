@@ -1,0 +1,78 @@
+\doxysection{Data\+Formatter Namespace Reference}
+\hypertarget{namespaceDataFormatter}{}\label{namespaceDataFormatter}\index{DataFormatter@{DataFormatter}}
+
+
+Namespace para funções de formatação de dados de sensores.  
+
+
+\doxysubsubsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{structUdpPacket}{Udp\+Packet}} \mbox{\hyperlink{namespaceDataFormatter_a99d329ec32194abecb7b09bfcbd01e85}{prepare\+Packet}} (const std\+::string \&group, const std\+::string \&sensor, double value, const std\+::string \&unit)
+\begin{DoxyCompactList}\small\item\em Prepara um pacote UDP com informações do sensor. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+Namespace para funções de formatação de dados de sensores. 
+
+Funções auxiliares para formatação de dados de sensores.
+
+Contém utilitários para preparar pacotes de dados antes do envio pela rede.
+
+Este namespace agrupa utilitários responsáveis por montar pacotes de dados antes do envio via protocolo UDP. 
+
+\label{doc-func-members}
+\Hypertarget{namespaceDataFormatter_doc-func-members}
+\doxysubsection{Function Documentation}
+\Hypertarget{namespaceDataFormatter_a99d329ec32194abecb7b09bfcbd01e85}\index{DataFormatter@{DataFormatter}!preparePacket@{preparePacket}}
+\index{preparePacket@{preparePacket}!DataFormatter@{DataFormatter}}
+\doxysubsubsection{\texorpdfstring{preparePacket()}{preparePacket()}}
+{\footnotesize\ttfamily \label{namespaceDataFormatter_a99d329ec32194abecb7b09bfcbd01e85} 
+\mbox{\hyperlink{structUdpPacket}{Udp\+Packet}} Data\+Formatter\+::prepare\+Packet (\begin{DoxyParamCaption}\item[{const std\+::string \&}]{group}{, }\item[{const std\+::string \&}]{sensor}{, }\item[{double}]{value}{, }\item[{const std\+::string \&}]{unit}{}\end{DoxyParamCaption})}
+
+
+
+Prepara um pacote UDP com informações do sensor. 
+
+Prepara um pacote de dados no formato {\ttfamily \doxylink{structUdpPacket}{Udp\+Packet}}.
+
+Esta função formata os dados recebidos (grupo, sensor, valor e unidade) em uma estrutura {\ttfamily \doxylink{structUdpPacket}{Udp\+Packet}} pronta para envio via UDP.
+
+
+\begin{DoxyParams}{Parameters}
+{\em group} & Nome do grupo ou categoria do sensor (ex\+: "{}\+Temperatura"{}). \\
+\hline
+{\em sensor} & Identificador do sensor (ex\+: "{}\+Sensor1"{}). \\
+\hline
+{\em value} & Valor medido pelo sensor. \\
+\hline
+{\em unit} & Unidade do valor (ex\+: "{}°\+C"{}, "{}\+V"{}, "{}m/s²"{}). \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+Estrutura {\ttfamily \doxylink{structUdpPacket}{Udp\+Packet}} contendo os dados formatados.
+\end{DoxyReturn}
+Constrói uma estrutura {\ttfamily \doxylink{structUdpPacket}{Udp\+Packet}} preenchendo os campos com as informações do sensor e adiciona automaticamente um timestamp no formato ISO8601 (UTC).
+
+Exemplo de uso\+: 
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\mbox{\hyperlink{structUdpPacket}{UdpPacket}}\ pkt\ =\ \mbox{\hyperlink{namespaceDataFormatter_a99d329ec32194abecb7b09bfcbd01e85}{DataFormatter::preparePacket}}(\textcolor{stringliteral}{"{}Temperatura"{}},\ \textcolor{stringliteral}{"{}Sensor1"{}},\ 25.4,\ \textcolor{stringliteral}{"{}°C"{}});}
+\DoxyCodeLine{std::string\ json\ =\ \mbox{\hyperlink{include_2udp__protocol_8hpp_a98f320c1f57d570438d69cabd9677658}{serialize}}(pkt);}
+
+\end{DoxyCode}
+
+
+
+\begin{DoxyParams}{Parameters}
+{\em group} & Nome do grupo ou categoria do sensor (ex\+: "{}\+Temperatura"{}). \\
+\hline
+{\em sensor} & Identificador do sensor (ex\+: "{}\+Sensor1"{}). \\
+\hline
+{\em value} & Valor medido pelo sensor. \\
+\hline
+{\em unit} & Unidade de medida (ex\+: "{}°\+C"{}, "{}\+V"{}). \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+Estrutura {\ttfamily \doxylink{structUdpPacket}{Udp\+Packet}} pronta para serialização e envio. 
+\end{DoxyReturn}

@@ -1,0 +1,25 @@
+\doxysection{embarcado/src/data\+\_\+formatter.hpp File Reference}
+\hypertarget{src_2data__formatter_8hpp}{}\label{src_2data__formatter_8hpp}\index{embarcado/src/data\_formatter.hpp@{embarcado/src/data\_formatter.hpp}}
+
+
+Declarações para formatação e preparação de pacotes de dados UDP.  
+
+
+{\ttfamily \#include $<$string$>$}\newline
+{\ttfamily \#include "{}udp\+\_\+protocol.\+hpp"{}}\newline
+\doxysubsubsection*{Namespaces}
+\begin{DoxyCompactItemize}
+\item 
+namespace \mbox{\hyperlink{namespaceDataFormatter}{Data\+Formatter}}
+\begin{DoxyCompactList}\small\item\em Namespace para funções de formatação de dados de sensores. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsubsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{structUdpPacket}{Udp\+Packet}} \mbox{\hyperlink{namespaceDataFormatter_a99d329ec32194abecb7b09bfcbd01e85}{Data\+Formatter\+::prepare\+Packet}} (const std\+::string \&group, const std\+::string \&sensor, double value, const std\+::string \&unit)
+\begin{DoxyCompactList}\small\item\em Prepara um pacote UDP com informações do sensor. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+Declarações para formatação e preparação de pacotes de dados UDP. 
+
+Este arquivo define a função responsável por formatar dados de sensores em um pacote UDP no formato esperado pelo protocolo definido em {\ttfamily udp\+\_\+protocol.\+hpp}. 

@@ -1,0 +1,70 @@
+\doxysection{Udp\+Packet Struct Reference}
+\hypertarget{structUdpPacket}{}\label{structUdpPacket}\index{UdpPacket@{UdpPacket}}
+
+
+Representa um pacote de dados UDP no formato JSON.  
+
+
+
+
+{\ttfamily \#include $<$udp\+\_\+protocol.\+hpp$>$}
+
+\doxysubsubsection*{Public Attributes}
+\begin{DoxyCompactItemize}
+\item 
+std\+::string \mbox{\hyperlink{structUdpPacket_a669442fbb120fef183a4c50e617bdd4e}{group\+\_\+id}}
+\item 
+std\+::string \mbox{\hyperlink{structUdpPacket_a778d21933c770538770d06b2d2082fca}{sensor\+\_\+id}}
+\item 
+double \mbox{\hyperlink{structUdpPacket_a3f33c17ce3249497c77617fcbf94c093}{value}}
+\item 
+std\+::string \mbox{\hyperlink{structUdpPacket_a9a10f7dca634175ca94d8a6f1e53e5d9}{unit}}
+\item 
+std\+::string \mbox{\hyperlink{structUdpPacket_ad9a6ba12832737cf4eb691384b210c0b}{timestamp}}
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+Representa um pacote de dados UDP no formato JSON. 
+
+Contém as informações básicas enviadas por um sensor, incluindo o identificador do grupo, o ID do sensor, o valor medido, a unidade e o timestamp UTC da leitura. 
+
+\label{doc-variable-members}
+\Hypertarget{structUdpPacket_doc-variable-members}
+\doxysubsection{Member Data Documentation}
+\Hypertarget{structUdpPacket_a669442fbb120fef183a4c50e617bdd4e}\index{UdpPacket@{UdpPacket}!group\_id@{group\_id}}
+\index{group\_id@{group\_id}!UdpPacket@{UdpPacket}}
+\doxysubsubsection{\texorpdfstring{group\_id}{group\_id}}
+{\footnotesize\ttfamily \label{structUdpPacket_a669442fbb120fef183a4c50e617bdd4e} 
+std\+::string Udp\+Packet\+::group\+\_\+id}
+
+Identificador do grupo de sensores (ex\+: "{}\+Temperatura"{}). \Hypertarget{structUdpPacket_a778d21933c770538770d06b2d2082fca}\index{UdpPacket@{UdpPacket}!sensor\_id@{sensor\_id}}
+\index{sensor\_id@{sensor\_id}!UdpPacket@{UdpPacket}}
+\doxysubsubsection{\texorpdfstring{sensor\_id}{sensor\_id}}
+{\footnotesize\ttfamily \label{structUdpPacket_a778d21933c770538770d06b2d2082fca} 
+std\+::string Udp\+Packet\+::sensor\+\_\+id}
+
+Identificador único do sensor (ex\+: "{}\+Sensor1"{}). \Hypertarget{structUdpPacket_ad9a6ba12832737cf4eb691384b210c0b}\index{UdpPacket@{UdpPacket}!timestamp@{timestamp}}
+\index{timestamp@{timestamp}!UdpPacket@{UdpPacket}}
+\doxysubsubsection{\texorpdfstring{timestamp}{timestamp}}
+{\footnotesize\ttfamily \label{structUdpPacket_ad9a6ba12832737cf4eb691384b210c0b} 
+std\+::string Udp\+Packet\+::timestamp}
+
+Data/hora da leitura no formato ISO8601 (UTC). \Hypertarget{structUdpPacket_a9a10f7dca634175ca94d8a6f1e53e5d9}\index{UdpPacket@{UdpPacket}!unit@{unit}}
+\index{unit@{unit}!UdpPacket@{UdpPacket}}
+\doxysubsubsection{\texorpdfstring{unit}{unit}}
+{\footnotesize\ttfamily \label{structUdpPacket_a9a10f7dca634175ca94d8a6f1e53e5d9} 
+std\+::string Udp\+Packet\+::unit}
+
+Unidade de medida (ex\+: "{}°\+C"{}, "{}\+V"{}). \Hypertarget{structUdpPacket_a3f33c17ce3249497c77617fcbf94c093}\index{UdpPacket@{UdpPacket}!value@{value}}
+\index{value@{value}!UdpPacket@{UdpPacket}}
+\doxysubsubsection{\texorpdfstring{value}{value}}
+{\footnotesize\ttfamily \label{structUdpPacket_a3f33c17ce3249497c77617fcbf94c093} 
+double Udp\+Packet\+::value}
+
+Valor medido pelo sensor. 
+
+The documentation for this struct was generated from the following files\+:\begin{DoxyCompactItemize}
+\item 
+embarcado/include/\mbox{\hyperlink{include_2udp__protocol_8hpp}{udp\+\_\+protocol.\+hpp}}\item 
+embarcado/src/\mbox{\hyperlink{src_2udp__protocol_8hpp}{udp\+\_\+protocol.\+hpp}}\end{DoxyCompactItemize}

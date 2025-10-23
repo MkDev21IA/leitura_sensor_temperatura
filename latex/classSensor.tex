@@ -1,0 +1,202 @@
+\doxysection{Sensor Class Reference}
+\hypertarget{classSensor}{}\label{classSensor}\index{Sensor@{Sensor}}
+
+
+Classe para leitura e conversão de valores de um sensor analógico.  
+
+
+
+
+{\ttfamily \#include $<$sensor.\+hpp$>$}
+
+\doxysubsubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{classSensor_a342d6d11ef572c8cba92cb76fb1a294b}{Sensor}} ()
+\begin{DoxyCompactList}\small\item\em Construtor padrão da classe \doxylink{classSensor}{Sensor}. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{classSensor_aee8c70e7ef05ce65e7ee33686b5d7db2}{\texorpdfstring{$\sim$}{\string~}\+Sensor}} ()
+\begin{DoxyCompactList}\small\item\em Destrutor da classe \doxylink{classSensor}{Sensor}. \end{DoxyCompactList}\item 
+int \mbox{\hyperlink{classSensor_a4437f0f378ee4042c77be13b18b125ac}{read\+Raw}} ()
+\begin{DoxyCompactList}\small\item\em Lê o valor bruto do sensor (ADC). \end{DoxyCompactList}\item 
+float \mbox{\hyperlink{classSensor_afa8666332cc48b5deffeaeba01964efb}{read\+Value}} ()
+\begin{DoxyCompactList}\small\item\em Lê e converte o valor analógico para a unidade física configurada. \end{DoxyCompactList}\item 
+std\+::string \mbox{\hyperlink{classSensor_a32216332beff1322ae2ebab9b5789175}{get\+Unit}} ()
+\begin{DoxyCompactList}\small\item\em Retorna a unidade de medida atual do sensor. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{classSensor_a342d6d11ef572c8cba92cb76fb1a294b}{Sensor}} ()
+\begin{DoxyCompactList}\small\item\em Construtor padrão da classe \doxylink{classSensor}{Sensor}. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{classSensor_aee8c70e7ef05ce65e7ee33686b5d7db2}{\texorpdfstring{$\sim$}{\string~}\+Sensor}} ()
+\begin{DoxyCompactList}\small\item\em Destrutor da classe \doxylink{classSensor}{Sensor}. \end{DoxyCompactList}\item 
+int \mbox{\hyperlink{classSensor_a4437f0f378ee4042c77be13b18b125ac}{read\+Raw}} ()
+\begin{DoxyCompactList}\small\item\em Lê o valor bruto do sensor (ADC). \end{DoxyCompactList}\item 
+float \mbox{\hyperlink{classSensor_afa8666332cc48b5deffeaeba01964efb}{read\+Value}} ()
+\begin{DoxyCompactList}\small\item\em Lê e converte o valor analógico para a unidade física configurada. \end{DoxyCompactList}\item 
+std\+::string \mbox{\hyperlink{classSensor_a32216332beff1322ae2ebab9b5789175}{get\+Unit}} ()
+\begin{DoxyCompactList}\small\item\em Retorna a unidade de medida atual do sensor. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+Classe para leitura e conversão de valores de um sensor analógico. 
+
+A classe encapsula a lógica de leitura de valores analógicos e a conversão para unidades físicas, utilizando as constantes do modelo de Steinhart-\/\+Hart. 
+
+\label{doc-constructors}
+\Hypertarget{classSensor_doc-constructors}
+\doxysubsection{Constructor \& Destructor Documentation}
+\Hypertarget{classSensor_a342d6d11ef572c8cba92cb76fb1a294b}\index{Sensor@{Sensor}!Sensor@{Sensor}}
+\index{Sensor@{Sensor}!Sensor@{Sensor}}
+\doxysubsubsection{\texorpdfstring{Sensor()}{Sensor()}\hspace{0.1cm}{\footnotesize\ttfamily [1/2]}}
+{\footnotesize\ttfamily \label{classSensor_a342d6d11ef572c8cba92cb76fb1a294b} 
+Sensor\+::\+Sensor (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption})}
+
+
+
+Construtor padrão da classe \doxylink{classSensor}{Sensor}. 
+
+Construtor da classe \doxylink{classSensor}{Sensor}.
+
+Inicializa o sensor e define valores padrão para as constantes de calibração.
+
+Inicializa o último valor lido como 0 e define a unidade padrão como "{}°\+C"{}. \Hypertarget{classSensor_aee8c70e7ef05ce65e7ee33686b5d7db2}\index{Sensor@{Sensor}!````~Sensor@{\texorpdfstring{$\sim$}{\string~}Sensor}}
+\index{````~Sensor@{\texorpdfstring{$\sim$}{\string~}Sensor}!Sensor@{Sensor}}
+\doxysubsubsection{\texorpdfstring{\texorpdfstring{$\sim$}{\string~}Sensor()}{\string~Sensor()}\hspace{0.1cm}{\footnotesize\ttfamily [1/2]}}
+{\footnotesize\ttfamily \label{classSensor_aee8c70e7ef05ce65e7ee33686b5d7db2} 
+Sensor\+::\texorpdfstring{$\sim$}{\string~}\+Sensor (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption})}
+
+
+
+Destrutor da classe \doxylink{classSensor}{Sensor}. 
+
+Libera recursos, se necessário.
+
+Atualmente não realiza operações adicionais. \Hypertarget{classSensor_a342d6d11ef572c8cba92cb76fb1a294b}\index{Sensor@{Sensor}!Sensor@{Sensor}}
+\index{Sensor@{Sensor}!Sensor@{Sensor}}
+\doxysubsubsection{\texorpdfstring{Sensor()}{Sensor()}\hspace{0.1cm}{\footnotesize\ttfamily [2/2]}}
+{\footnotesize\ttfamily \label{classSensor_a342d6d11ef572c8cba92cb76fb1a294b} 
+Sensor\+::\+Sensor (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption})}
+
+
+
+Construtor padrão da classe \doxylink{classSensor}{Sensor}. 
+
+Inicializa o sensor e define valores padrão para as constantes de calibração. \Hypertarget{classSensor_aee8c70e7ef05ce65e7ee33686b5d7db2}\index{Sensor@{Sensor}!````~Sensor@{\texorpdfstring{$\sim$}{\string~}Sensor}}
+\index{````~Sensor@{\texorpdfstring{$\sim$}{\string~}Sensor}!Sensor@{Sensor}}
+\doxysubsubsection{\texorpdfstring{\texorpdfstring{$\sim$}{\string~}Sensor()}{\string~Sensor()}\hspace{0.1cm}{\footnotesize\ttfamily [2/2]}}
+{\footnotesize\ttfamily \label{classSensor_aee8c70e7ef05ce65e7ee33686b5d7db2} 
+Sensor\+::\texorpdfstring{$\sim$}{\string~}\+Sensor (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption})}
+
+
+
+Destrutor da classe \doxylink{classSensor}{Sensor}. 
+
+Libera recursos, se necessário. 
+
+\label{doc-func-members}
+\Hypertarget{classSensor_doc-func-members}
+\doxysubsection{Member Function Documentation}
+\Hypertarget{classSensor_a32216332beff1322ae2ebab9b5789175}\index{Sensor@{Sensor}!getUnit@{getUnit}}
+\index{getUnit@{getUnit}!Sensor@{Sensor}}
+\doxysubsubsection{\texorpdfstring{getUnit()}{getUnit()}\hspace{0.1cm}{\footnotesize\ttfamily [1/2]}}
+{\footnotesize\ttfamily \label{classSensor_a32216332beff1322ae2ebab9b5789175} 
+std\+::string Sensor\+::get\+Unit (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption})}
+
+
+
+Retorna a unidade de medida atual do sensor. 
+
+Retorna a unidade de medida do sensor.
+
+\begin{DoxyReturn}{Returns}
+Unidade de medida como string (ex\+: "{}°\+C"{}, "{}\+V"{}).
+
+Unidade como string (ex\+: "{}°\+C"{}). 
+\end{DoxyReturn}
+\Hypertarget{classSensor_a32216332beff1322ae2ebab9b5789175}\index{Sensor@{Sensor}!getUnit@{getUnit}}
+\index{getUnit@{getUnit}!Sensor@{Sensor}}
+\doxysubsubsection{\texorpdfstring{getUnit()}{getUnit()}\hspace{0.1cm}{\footnotesize\ttfamily [2/2]}}
+{\footnotesize\ttfamily \label{classSensor_a32216332beff1322ae2ebab9b5789175} 
+std\+::string Sensor\+::get\+Unit (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption})}
+
+
+
+Retorna a unidade de medida atual do sensor. 
+
+\begin{DoxyReturn}{Returns}
+Unidade de medida como string (ex\+: "{}°\+C"{}, "{}\+V"{}). 
+\end{DoxyReturn}
+\Hypertarget{classSensor_a4437f0f378ee4042c77be13b18b125ac}\index{Sensor@{Sensor}!readRaw@{readRaw}}
+\index{readRaw@{readRaw}!Sensor@{Sensor}}
+\doxysubsubsection{\texorpdfstring{readRaw()}{readRaw()}\hspace{0.1cm}{\footnotesize\ttfamily [1/2]}}
+{\footnotesize\ttfamily \label{classSensor_a4437f0f378ee4042c77be13b18b125ac} 
+int Sensor\+::read\+Raw (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption})}
+
+
+
+Lê o valor bruto do sensor (ADC). 
+
+Lê o valor bruto do sensor (ADC) a partir de arquivo do sistema.
+
+\begin{DoxyReturn}{Returns}
+Valor inteiro correspondente à leitura do ADC.
+\end{DoxyReturn}
+O valor é lido do arquivo correspondente ao canal ADC utilizado pelo sensor embarcado.
+
+\begin{DoxyReturn}{Returns}
+Valor inteiro lido do ADC. Retorna -\/1 em caso de erro ao abrir ou ler o arquivo. 
+\end{DoxyReturn}
+\texorpdfstring{$<$}{<} Valor negativo indica falha na leitura.\Hypertarget{classSensor_a4437f0f378ee4042c77be13b18b125ac}\index{Sensor@{Sensor}!readRaw@{readRaw}}
+\index{readRaw@{readRaw}!Sensor@{Sensor}}
+\doxysubsubsection{\texorpdfstring{readRaw()}{readRaw()}\hspace{0.1cm}{\footnotesize\ttfamily [2/2]}}
+{\footnotesize\ttfamily \label{classSensor_a4437f0f378ee4042c77be13b18b125ac} 
+int Sensor\+::read\+Raw (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption})}
+
+
+
+Lê o valor bruto do sensor (ADC). 
+
+\begin{DoxyReturn}{Returns}
+Valor inteiro correspondente à leitura do ADC. 
+\end{DoxyReturn}
+\Hypertarget{classSensor_afa8666332cc48b5deffeaeba01964efb}\index{Sensor@{Sensor}!readValue@{readValue}}
+\index{readValue@{readValue}!Sensor@{Sensor}}
+\doxysubsubsection{\texorpdfstring{readValue()}{readValue()}\hspace{0.1cm}{\footnotesize\ttfamily [1/2]}}
+{\footnotesize\ttfamily \label{classSensor_afa8666332cc48b5deffeaeba01964efb} 
+float Sensor\+::read\+Value (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption})}
+
+
+
+Lê e converte o valor analógico para a unidade física configurada. 
+
+Lê e converte o valor do sensor para unidade física (°C).
+
+Realiza a leitura do ADC, calcula a resistência equivalente e aplica a equação de Steinhart-\/\+Hart para obter a temperatura (ou outra grandeza).
+
+\begin{DoxyReturn}{Returns}
+Valor convertido em unidade física (ex\+: temperatura em °C).
+\end{DoxyReturn}
+Chama {\ttfamily \doxylink{classSensor_a4437f0f378ee4042c77be13b18b125ac}{read\+Raw()}} para obter o valor do ADC e depois utiliza a função {\ttfamily \doxylink{include_2utils_8hpp_a660dff5311099d7fb8f0bac1577318f3}{convert\+Raw\+To\+Celsius()}} para converter para temperatura. O último valor lido é armazenado em {\ttfamily last\+Value}.
+
+\begin{DoxyReturn}{Returns}
+Valor convertido em °C. 
+\end{DoxyReturn}
+\Hypertarget{classSensor_afa8666332cc48b5deffeaeba01964efb}\index{Sensor@{Sensor}!readValue@{readValue}}
+\index{readValue@{readValue}!Sensor@{Sensor}}
+\doxysubsubsection{\texorpdfstring{readValue()}{readValue()}\hspace{0.1cm}{\footnotesize\ttfamily [2/2]}}
+{\footnotesize\ttfamily \label{classSensor_afa8666332cc48b5deffeaeba01964efb} 
+float Sensor\+::read\+Value (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption})}
+
+
+
+Lê e converte o valor analógico para a unidade física configurada. 
+
+Realiza a leitura do ADC, calcula a resistência equivalente e aplica a equação de Steinhart-\/\+Hart para obter a temperatura (ou outra grandeza).
+
+\begin{DoxyReturn}{Returns}
+Valor convertido em unidade física (ex\+: temperatura em °C). 
+\end{DoxyReturn}
+
+
+The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
+\item 
+embarcado/include/\mbox{\hyperlink{include_2sensor_8hpp}{sensor.\+hpp}}\item 
+embarcado/src/\mbox{\hyperlink{src_2sensor_8hpp}{sensor.\+hpp}}\item 
+embarcado/src/\mbox{\hyperlink{sensor_8cpp}{sensor.\+cpp}}\end{DoxyCompactItemize}

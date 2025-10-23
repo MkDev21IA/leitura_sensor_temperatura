@@ -1,0 +1,98 @@
+\doxysection{embarcado/src/utils.hpp File Reference}
+\hypertarget{src_2utils_8hpp}{}\label{src_2utils_8hpp}\index{embarcado/src/utils.hpp@{embarcado/src/utils.hpp}}
+
+
+Funções utilitárias para conversão e registro de dados.  
+
+
+{\ttfamily \#include $<$string$>$}\newline
+\doxysubsubsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+float \mbox{\hyperlink{src_2utils_8hpp_a660dff5311099d7fb8f0bac1577318f3}{convert\+Raw\+To\+Celsius}} (int raw\+Value)
+\begin{DoxyCompactList}\small\item\em Converte o valor bruto do ADC em temperatura (°C). \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{src_2utils_8hpp_a6f53ce7ffc5b6870616a77bd28de18df}{log\+Data}} (const std\+::string \&msg)
+\begin{DoxyCompactList}\small\item\em Exibe uma mensagem de log no console. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+Funções utilitárias para conversão e registro de dados. 
+
+Este arquivo define funções auxiliares usadas em diversas partes do projeto, incluindo conversão de leituras analógicas (ADC) para temperatura em Celsius e geração de logs simples no console. 
+
+\label{doc-func-members}
+\Hypertarget{src_2utils_8hpp_doc-func-members}
+\doxysubsection{Function Documentation}
+\Hypertarget{src_2utils_8hpp_a660dff5311099d7fb8f0bac1577318f3}\index{utils.hpp@{utils.hpp}!convertRawToCelsius@{convertRawToCelsius}}
+\index{convertRawToCelsius@{convertRawToCelsius}!utils.hpp@{utils.hpp}}
+\doxysubsubsection{\texorpdfstring{convertRawToCelsius()}{convertRawToCelsius()}}
+{\footnotesize\ttfamily \label{src_2utils_8hpp_a660dff5311099d7fb8f0bac1577318f3} 
+float convert\+Raw\+To\+Celsius (\begin{DoxyParamCaption}\item[{int}]{raw\+ADC}{}\end{DoxyParamCaption})}
+
+
+
+Converte o valor bruto do ADC em temperatura (°C). 
+
+Aplica uma equação de conversão ou modelo (por exemplo, Steinhart-\/\+Hart) para transformar o valor lido pelo ADC em temperatura. A implementação deve considerar as constantes do circuito (resistência série, coeficientes do termistor, etc.).
+
+
+\begin{DoxyParams}{Parameters}
+{\em raw\+Value} & Valor bruto lido do conversor ADC. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+Temperatura correspondente em graus Celsius.
+\end{DoxyReturn}
+Converte o valor bruto do ADC em temperatura (°C).
+
+Aplica o modelo de Steinhart-\/\+Hart para um termistor NTC. Se o valor do ADC for inválido (≤ 0), retorna -\/273.\+15°C como valor de erro.
+
+
+\begin{DoxyParams}{Parameters}
+{\em raw\+ADC} & Valor lido do ADC (inteiro). \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+Temperatura correspondente em graus Celsius. 
+\end{DoxyReturn}
+\texorpdfstring{$<$}{<} Resistor fixo em série (Ω).
+
+\texorpdfstring{$<$}{<} Valor máximo do ADC (12 bits).
+
+\texorpdfstring{$<$}{<} Coeficiente A do Steinhart-\/\+Hart.
+
+\texorpdfstring{$<$}{<} Coeficiente B do Steinhart-\/\+Hart.
+
+\texorpdfstring{$<$}{<} Coeficiente C do Steinhart-\/\+Hart.\Hypertarget{src_2utils_8hpp_a6f53ce7ffc5b6870616a77bd28de18df}\index{utils.hpp@{utils.hpp}!logData@{logData}}
+\index{logData@{logData}!utils.hpp@{utils.hpp}}
+\doxysubsubsection{\texorpdfstring{logData()}{logData()}}
+{\footnotesize\ttfamily \label{src_2utils_8hpp_a6f53ce7ffc5b6870616a77bd28de18df} 
+void log\+Data (\begin{DoxyParamCaption}\item[{const std\+::string \&}]{msg}{}\end{DoxyParamCaption})}
+
+
+
+Exibe uma mensagem de log no console. 
+
+Função simples para registrar eventos, erros ou mensagens informativas durante a execução do programa.
+
+Exemplo de uso\+: 
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\mbox{\hyperlink{include_2utils_8hpp_a6f53ce7ffc5b6870616a77bd28de18df}{logData}}(\textcolor{stringliteral}{"{}Iniciando\ leitura\ do\ sensor..."{}});}
+
+\end{DoxyCode}
+
+
+
+\begin{DoxyParams}{Parameters}
+{\em msg} & Mensagem de texto a ser exibida no log.\\
+\hline
+\end{DoxyParams}
+Exibe uma mensagem de log no console.
+
+Prefixa a mensagem com "{}\mbox{[}\+LOG\mbox{]}"{} e envia para std\+::cout.
+
+
+\begin{DoxyParams}{Parameters}
+{\em msg} & Mensagem de texto a ser exibida. \\
+\hline
+\end{DoxyParams}

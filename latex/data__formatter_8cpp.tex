@@ -1,0 +1,24 @@
+\doxysection{embarcado/src/data\+\_\+formatter.cpp File Reference}
+\hypertarget{data__formatter_8cpp}{}\label{data__formatter_8cpp}\index{embarcado/src/data\_formatter.cpp@{embarcado/src/data\_formatter.cpp}}
+
+
+Implementação das funções de formatação de pacotes de dados UDP.  
+
+
+{\ttfamily \#include "{}data\+\_\+formatter.\+hpp"{}}\newline
+\doxysubsubsection*{Namespaces}
+\begin{DoxyCompactItemize}
+\item 
+namespace \mbox{\hyperlink{namespaceDataFormatter}{Data\+Formatter}}
+\begin{DoxyCompactList}\small\item\em Namespace para funções de formatação de dados de sensores. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsubsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{structUdpPacket}{Udp\+Packet}} \mbox{\hyperlink{namespaceDataFormatter_a99d329ec32194abecb7b09bfcbd01e85}{Data\+Formatter\+::prepare\+Packet}} (const std\+::string \&group, const std\+::string \&sensor, double value, const std\+::string \&unit)
+\begin{DoxyCompactList}\small\item\em Prepara um pacote UDP com informações do sensor. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+Implementação das funções de formatação de pacotes de dados UDP. 
+
+Este módulo define a função responsável por preparar pacotes de dados de sensores no formato {\ttfamily \doxylink{structUdpPacket}{Udp\+Packet}}, incluindo a geração automática de timestamp e a associação de metadados como grupo, sensor, valor e unidade. 

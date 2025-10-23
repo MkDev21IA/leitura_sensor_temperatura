@@ -1,0 +1,28 @@
+\doxysection{udp\+\_\+client.\+hpp}
+\hypertarget{src_2udp__client_8hpp_source}{}\label{src_2udp__client_8hpp_source}\index{embarcado/src/udp\_client.hpp@{embarcado/src/udp\_client.hpp}}
+\mbox{\hyperlink{src_2udp__client_8hpp}{Go to the documentation of this file.}}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ }
+\DoxyCodeLine{00010\ }
+\DoxyCodeLine{00011\ \textcolor{preprocessor}{\#ifndef\ UDP\_CLIENT\_HPP}}
+\DoxyCodeLine{00012\ \textcolor{preprocessor}{\#define\ UDP\_CLIENT\_HPP}}
+\DoxyCodeLine{00013\ }
+\DoxyCodeLine{00014\ \textcolor{preprocessor}{\#include\ <string>}}
+\DoxyCodeLine{00015\ }
+\DoxyCodeLine{00023\ \textcolor{keyword}{class\ }\mbox{\hyperlink{classUDPClient}{UDPClient}}\ \{}
+\DoxyCodeLine{00024\ \textcolor{keyword}{public}:}
+\DoxyCodeLine{00034\ \ \ \ \ \mbox{\hyperlink{classUDPClient_a20f137e41b92f53e7cb2c7bfe2dd3986}{UDPClient}}(\textcolor{keyword}{const}\ std::string\ \&ip,\ \textcolor{keywordtype}{int}\ port);}
+\DoxyCodeLine{00035\ }
+\DoxyCodeLine{00041\ \ \ \ \ \mbox{\hyperlink{classUDPClient_a34f070027c8fa69813efcf9100d7e35d}{\string~UDPClient}}();}
+\DoxyCodeLine{00042\ }
+\DoxyCodeLine{00049\ \ \ \ \ \textcolor{keywordtype}{bool}\ \mbox{\hyperlink{classUDPClient_a1c47d63a3f1bc611421abf3e7b2df8e7}{sendData}}(\textcolor{keyword}{const}\ std::string\ \&data);}
+\DoxyCodeLine{00050\ }
+\DoxyCodeLine{00051\ \textcolor{keyword}{private}:}
+\DoxyCodeLine{00052\ \ \ \ \ \textcolor{keywordtype}{int}\ sockfd;\ \ \ \ \ \ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{00053\ \ \ \ \ std::string\ server\_ip;\ \ \ }
+\DoxyCodeLine{00054\ \ \ \ \ \textcolor{keywordtype}{int}\ server\_port;\ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{00055\ \};}
+\DoxyCodeLine{00056\ }
+\DoxyCodeLine{00057\ \textcolor{preprocessor}{\#endif\ }\textcolor{comment}{//\ UDP\_CLIENT\_HPP}}
+
+\end{DoxyCode}
