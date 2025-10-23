@@ -40,7 +40,7 @@ Sensor::~Sensor() {}
  * @return Valor inteiro lido do ADC. Retorna -1 em caso de erro ao abrir ou ler o arquivo.
  */
 int Sensor::readRaw() {
-    const std::string path = "/home/marcos/projeto-sensor/build/in_voltage13_raw";
+    const std::string path = "/sys/bus/iio/devices/iio:device0/in_voltage13_raw";
     std::ifstream file(path);
 
     if (!file.is_open()) {
