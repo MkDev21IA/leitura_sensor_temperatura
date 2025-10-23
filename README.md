@@ -45,27 +45,141 @@ Ambiente de compilação cruzada (cross-toolchain) para ARM, como: `arm-linux-gn
 -   **Doxygen** para gerar documentação técnica.
 
  ---
-## 3. Organização do Código 
+### 3. Organização do Código
 
-O núcleo do projeto é a classe `ADCReader` que abstrai o funcionamento do sensor de temperatura (termistor) e oferece métodos de fácil utilização para ler o valor do ADC, convertê-lo para tensão e calcular a temperatura final.
+O núcleo do projeto é o módulo de leitura e envio de dados de temperatura, abstraído principalmente pela classe `Sensor` e pelos módulos de comunicação UDP. A arquitetura é modular, separando cabeçalhos, implementações e funções utilitárias, facilitando manutenção e testes.
 
-### Estrutura da Classe
+---
 
-Atributo `adcFilePath`: endereço no sistema Linux embarcado que representa o canal ADC do sensor (ex: `/sys/bus/iio/devices/iio:device0/in_voltage13_raw`).
+### 3.1. Classe Sensor (`sensor.hpp` / `sensor.cpp`)
 
-**Funções principais:**
+Responsável por abstrair o hardware do sensor e fornecer leituras convertidas de temperatura.
 
-`int readRawADC()`: Acessa o arquivo de sistema (definido em `adcFilePath`) e lê o valor numérico bruto do ADC.
-* Retorna o valor lido (ex: 0-16384) ou -1 em caso de erro.
+**Atributos principais**
 
-`double calculateTemperature(int rawADC)`: Recebe o valor bruto do ADC e aplica a equação de Steinhart-Hart (usando os coeficientes definidos na classe) para convertê-lo em temperatura.
-* Retorna a temperatura calculada em graus Celsius (°C).
+| Atributo | Tipo | Descrição |
+| :--- | :--- | :--- |
+| `lastValue` | `float` | Último valor de temperatura lido |
+| `unit` | `std::string` | Unidade da leitura (°C) |
+| `seriesResistor` | `float` | Resistor em série com o termistor (Ω) |
+| `adcMaxValue` | `float` | Valor máximo do ADC (ex: 4095 para 12 bits) |
+| `steinhartA`, `steinhartB`, `steinhartC` | `float` | Coeficientes da equação de Steinhart-Hart |
 
-`void startContinuousReading(int intervalSeconds, bool showTemperature)`: Inicia um laço infinito que, a cada `intervalSeconds`, chama `printReading` para exibir os dados de leitura (RAW, Tensão e Temperatura) no terminal.
+**Funções principais**
 
-`int main()`: O código principal instancia a classe `ADCReader` e executa o loop contínuo de leitura através de `startContinuousReading()`.
+| Função | Retorno | Descrição |
+| :--- | :--- | :--- |
+| `int readRaw()` | `int` | Lê o valor bruto do ADC do arquivo do sistema Linux embarcado (`/sys/bus/iio/devices/iio:device0/in_voltage13_raw`). Retorna -1 em caso de erro. |
+| `float readValue()` | `float` | Converte o valor bruto para temperatura em °C usando Steinhart-Hart e atualiza `lastValue`. |
+| `std::string getUnit()` | `std::string` | Retorna a unidade da leitura (°C). |
 
-A cada segundo (por padrão), os valores são exibidos no terminal. O laço pode ser encerrado pelo usuário ao digitar Ctrl+C.
+---
+
+### 3.2. Comunicação UDP (`udp_client.hpp` / `udp_client.cpp`)
+
+Responsável por enviar os dados processados para um servidor remoto via protocolo UDP.
+
+**Atributos**
+
+| Atributo | Tipo | Descrição |
+| :--- | :--- | :--- |
+| `sockfd` | `int` | File descriptor do socket UDP |
+| `server_ip` | `std::string` | IP do servidor de destino |
+| `server_port` | `int` | Porta UDP do servidor |
+
+**Funções principais**
+
+| Função | Retorno | Descrição |
+| :--- | :--- | :--- |
+| `UDPClient(const std::string &ip, int port)` | construtor | Inicializa socket UDP e define destino |
+| `bool sendData(const std::string &data)` | `bool` | Envia dados (JSON) via UDP; retorna `true` se enviado com sucesso |
+| `~UDPClient()` | destruidor | Fecha o socket UDP |
+
+---
+
+### 3.3. Formatação de Pacotes (`data_formatter.hpp` / `data_formatter.cpp`)
+
+Módulo responsável por preparar e formatar os dados em pacotes padronizados (`UdpPacket`) para envio.
+
+**Funções principais**
+
+| Função | Retorno | Descrição |
+| :--- | :--- | :--- |
+| `UdpPacket preparePacket(const std::string &group, const std::string &sensor, double value, const std::string &unit)` | `UdpPacket` | Cria e retorna um pacote UDP completo, preenchendo `group_id`, `sensor_id`, `value`, `unit` e `timestamp` atual |
+
+---
+
+### 3.4. Estrutura do Pacote UDP (`udp_protocol.hpp`)
+
+Define o formato dos pacotes enviados e funções auxiliares para serialização.
+
+**Struct principal**
+
+```cpp
+struct UdpPacket {
+    std::string group_id;
+    std::string sensor_id;
+    double value;
+    std::string unit;
+    std::string timestamp;
+};
+```
+
+**Funções auxiliares**
+
+| Função | Retorno | Descrição |
+| :--- | :--- | :--- |
+| `std::string currentTimestamp()` | `string` | Gera `timestamp` atual em UTC no formato ISO8601 |
+| `std::string serialize(const UdpPacket &p)` | `string` | Converte `UdpPacket` em JSON simples |
+
+---
+
+### 3.5. Funções utilitárias (`utils.hpp` / `utils.cpp`)
+
+Contém funções auxiliares usadas pelo sensor e pelo sistema de logging.
+
+| Função | Retorno | Descrição |
+| :--- | :--- | :--- |
+| `float convertRawToCelsius(int rawValue)` | `float` | Converte valor bruto do ADC em temperatura (°C) usando Steinhart-Hart |
+| `void logData(const std::string &msg)` | `void` | Escreve mensagens de log no console com prefixo `[LOG]` |
+
+---
+
+### 3.6. Programa principal (`main.cpp`)
+
+Instancia `Sensor` e `UDPClient`.
+
+**Loop contínuo:**
+
+1.  Lê temperatura do sensor (`Sensor::readValue()`)
+2.  Prepara pacote JSON (`DataFormatter::preparePacket`)
+3.  Envia via UDP (`UDPClient::sendData`)
+4.  Mostra informações no console
+
+Intervalo padrão: 1 segundo
+
+Interrupção: Ctrl+C
+
+---
+
+### ✅ Resumo da Arquitetura
+
+```
+Sensor (leitura ADC) ---> DataFormatter (prepara pacote)
+                                 |
+                                 v
+                             UDPClient (envia pacote)
+                                 |
+                                 v
+                           Servidor remoto (recebe dados)
+```
+
+Essa estrutura modular facilita:
+
+-   Testes unitários (em `test/`)
+-   Substituição do sensor ou do protocolo de envio
+-   Manutenção e expansão do projeto
+
 
  ---
 
@@ -109,7 +223,7 @@ A seguir, a pinagem para a conexão do sensor KY-013 ao kit STM32MP1 DK1.
 | **VCC** (Meio) | +3.3V | `3.3V` |
 | **GND** | Terra | `GND` |
 
-**Nota Importante:** O pino `ADC_INx` é genérico. Você deve verificar no arquivo `src/SensorTemp.cpp` qual pino ADC específico (ex: `A0`, `A1`, etc.) foi configurado no código para conectar o pino de **Sinal (S)** do sensor.
+**Nota Importante:** O pino `ADC_INx` é genérico. Você deve verificar no arquivo `embarcado/src/sensor.cpp` qual pino ADC específico (ex: `A0`, `A1`, etc.) foi configurado no código para conectar o pino de **Sinal (S)** do sensor.
 
 ---
 
@@ -147,9 +261,9 @@ Antes de compilar, você precisa ter o SDK da ST instalado e a toolchain de comp
 1.  **Clone este repositório** e entre na pasta do projeto.
 
 2.  **Compile o programa:**
-    Execute o comando a seguir na raiz do projeto. Ele compilará o `SensorTemp.cpp` e salvará o executável final na pasta `build/`.
+    Execute o comando a seguir na raiz do projeto. Ele compilará o `sensor.cpp` e salvará o executável final na pasta `build/`.
     ```bash
-    arm-linux-g++ src/SensorTemp.cpp -o build/sensor
+    arm-linux-g++ embarcado/src/sensor.cpp -o build/sensor
     ```
 
 3.  **Envie o binário para a placa:**
