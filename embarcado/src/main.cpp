@@ -45,7 +45,7 @@ extern float getTemperature();
  */
 int main() {
     logData("Iniciando comunicação UDP...");
-    UDPClient client("127.0.0.1", 5000); /**< Cliente UDP para envio de pacotes. */
+    UDPClient client(" 192.168.42.10", 5000); /**< Cliente UDP para envio de pacotes. */
 
     while (true) {
         float valor = getTemperature();
